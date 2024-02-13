@@ -15,8 +15,8 @@ async function getAllProducts(req,res){
 }
 async function getProductById(req,res){
     try{
-        const id = req.params.id;
-        const product = await Products.find({id});
+        const productId = req.params.id;
+        const product = await Products.find({productId});
 
         if(!product){
             return res.json({message: 'Product not found'});
@@ -29,28 +29,25 @@ async function getProductById(req,res){
 }
 async function createProduct(req,res){
     try{
-        const product = req.body;   
-
-        const productExists = await Products.findOne(product);
-        if(productExists){
-            return res.json({message: 'Product already exists'});
-        }
-
+        const product = req.body.products;   
+        console.log(product);
+        
         await Products.create(product);
         return res.json({message:"Product created successfully"});
     }
     catch(err){
+        if(err.code == 11000){
+            return res.json({message:"Product already exists"})
+        }
         res.json({message: err.message});
     }
-    
 }
 async function updateProduct(req,res){
     try {
-        const id = req.params.id;
+        const productId = req.params.id;
         const product = req.body;
         
-        await Products.updateOne({id:id},{$set:product})
-
+        await Products.updateOne({productId:productId},{$set:product})
         return res.json({message:"Product updated successfully"});
     } 
     catch (error) {
@@ -59,8 +56,12 @@ async function updateProduct(req,res){
 }
 async function deleteProduct(req,res){
     try{
-        const id = req.params.id;
-        await Products.deleteMany({id});
+        const productId = req.params.id;
+        const product = await Products.findOne({productId})
+
+        if(!product) return res.status(404).json({message: "Product not found"});
+        
+        await Products.deleteMany({productId});
 
         return res.json({message:"Product deleted successfully"}); 
     }
