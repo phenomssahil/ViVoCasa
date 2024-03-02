@@ -69,10 +69,22 @@ async function deleteProduct(req,res){
         return res.json({message: error.message});
     }
 }
+async function getProductByCategory(req,res){
+    try {
+        const id = req.params.id;
+        const products = await Products.find({category:id});
+
+        return res.json(products);
+    } 
+    catch (error) {
+        return res.json({message: error.message});    
+    }
+}
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
     deleteProduct,
+    getProductByCategory
 }

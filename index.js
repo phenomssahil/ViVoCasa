@@ -4,11 +4,17 @@ const app = express();
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
-const {connectToMongoDb} = require('./final/connect');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+const {checkAuth} = require('./middleware/checkAuth')
+app.use(checkAuth)
+
+const {connectToMongoDb} = require('./connect');
 connectToMongoDb("mongodb://127.0.0.1:27017/ecommerce");
 
-const productRoute = require('./final/routes/productRoutes');
-const userRoute = require('./final/routes/userRoutes');
+const productRoute = require('./routes/productRoutes');
+const userRoute = require('./routes/userRoutes');
 app.use('/api/product',productRoute)
 app.use('/api/user',userRoute)
 
