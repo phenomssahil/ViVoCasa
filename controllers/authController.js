@@ -38,6 +38,7 @@ async function handleUserLogin(req,res){
         if(!user) return res.status(403).redirect('/login');
 
         request.user = user;
+
         const token = jwt.sign(
             {email:user.email},
             'secret'
@@ -48,8 +49,17 @@ async function handleUserLogin(req,res){
         res.status(error.status).redirect('/login');
     }    
 }
+async function handleUserLogout(req, res) {
+    try {
+        return res.clearCookie('token').redirect('/login');
+    } 
+    catch (error) {
+        res.json({error: error.message});
+    }
+}
 
 module.exports = {
     handleUserLogin,
-    handleUserSignup
+    handleUserSignup,
+    handleUserLogout
 }

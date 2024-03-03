@@ -46,7 +46,7 @@ async function deleteUser(req,res){
 }
 async function getUserProfile(req, res) {
     try {
-        const email = req.body.user.email;
+        const email = req.body.email;
 
         const user = await User.findOne({email});
 
@@ -76,10 +76,82 @@ async function updateUserProfile(req, res) {
         return res.json({message:err.message});
     }
 }
+async function getUserCart(req, res) {
+    try {
+        const user = req.user;
+        
+        const userCart = req.user.cart;
+        if(userCart.length==0){
+            return res.json({message:"cart is empty"});
+        }
+        
+        return res.json(userCart);    
+    } 
+    catch (error) {
+        
+    }
+}
+function getOrderHistory(req, res){
+    try {
+        const orders = req.user.order;
+
+        if(orders.length==0){
+            return res.json({message: "No orders found"})
+        }
+        return res.json(orders);
+
+    } 
+    catch (error) {
+        
+    }
+}
+function getUserAddress(req, res){
+    try {
+        const address = req.user.address;
+        if(!address) return res.json({message: 'no address available'});
+        
+        return res.json(address);
+    } 
+    catch (error) {
+        console.log(error);
+        return res.json({error: error.message});
+    }
+}
+async function updateUserAddress(req, res){
+    try {
+        const {address} = req.body;
+        const userEmail = req.user.email;
+        
+        await User.updateOne({email: userEmail},{$push: {address:address}})
+        return res.json({message: "address updated"});
+    } 
+    catch (error) {
+        console.log(error);
+        return res.json({error: error.message});
+    }
+}
+function getUserWishlist(req, res) {
+    try {
+        const wishlist = req.user.wishlist;
+        if(wishlist.length==0) return res.json({message: 'wishlist is empty'});
+    
+        return res.json(wishlist);
+    } 
+    catch (error) {
+        console.log(error.message);
+        return res.json({error: error.message});
+    }
+}
+
 module.exports = {
     getAllUsers,
     createUser,
     deleteUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    getUserCart,
+    getOrderHistory,
+    getUserAddress,
+    updateUserAddress,
+    getUserWishlist
 }

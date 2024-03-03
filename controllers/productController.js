@@ -1,36 +1,8 @@
 const Products = require('../model/products');
 
-async function getAllProducts(req,res){
-    try{
-        const products = await Products.find();
-        
-        if(!products){
-            return res.json({message:"no products found"});
-        }
-        return res.json({products});
-    }
-    catch(err){
-        res.send(err.message)
-    }
-}
-async function getProductById(req,res){
-    try{
-        const productId = req.params.id;
-        const product = await Products.find({productId});
-
-        if(!product){
-            return res.json({message: 'Product not found'});
-        }
-        return res.json({product})
-    }
-    catch(err){
-        res.json({message: err.message});
-    }
-}
 async function createProduct(req,res){
     try{
         const product = req.body.products;   
-        console.log(product);
         
         await Products.create(product);
         return res.json({message:"Product created successfully"});
@@ -69,6 +41,33 @@ async function deleteProduct(req,res){
         return res.json({message: error.message});
     }
 }
+async function getAllProducts(req,res){
+    try{
+        const products = await Products.find();
+        
+        if(!products){
+            return res.json({message:"no products found"});
+        }
+        return res.json({products});
+    }
+    catch(err){
+        res.send(err.message)
+    }
+}
+async function getProductById(req,res){
+    try{
+        const productId = req.params.id;
+        const product = await Products.find({productId});
+
+        if(!product){
+            return res.json({message: 'Product not found'});
+        }
+        return res.json({product})
+    }
+    catch(err){
+        res.json({message: err.message});
+    }
+}
 async function getProductByCategory(req,res){
     try {
         const id = req.params.id;
@@ -80,11 +79,28 @@ async function getProductByCategory(req,res){
         return res.json({message: error.message});    
     }
 }
+async function getProductBySearch(req,res){
+    try {
+        const {keyword} = req.query;
+
+        const regex = new RegExp(keyword,'i');
+
+        const product = await Products.find({$or:[{title:regex},{description:regex}]})
+
+        return res.json(product);
+    } 
+    catch (error) {
+        console.log(error.message);
+        return res.json({message: error.message});
+    }
+}
+
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
     deleteProduct,
-    getProductByCategory
+    getProductByCategory,
+    getProductBySearch
 }
