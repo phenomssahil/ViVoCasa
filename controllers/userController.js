@@ -1,5 +1,6 @@
 const { response } = require('express');
 const User = require('../model/user');
+const Product = require('../model/products');
 
 async function getAllUsers(req,res){
     try{
@@ -14,7 +15,7 @@ async function getAllUsers(req,res){
         console.log(err);
         return res.json({message: err.message});
     }
-}
+} 
 async function createUser(req,res){
     try{
         const user = req.body.user;
@@ -81,14 +82,39 @@ async function getUserCart(req, res) {
         const user = req.user;
         
         const userCart = req.user.cart;
+
         if(userCart.length==0){
             return res.json({message:"cart is empty"});
         }
-        
-        return res.json(userCart);    
+
+        const getProduct = async function(productId){
+            try{
+                return await Product.findOne({_id:productId});
+            }
+            catch(error){
+                console.log(error.message);
+            }
+        }
+        let userCart1=[];
+
+        const promises = userCart.map(async(cartItem)=>{
+            let product = await getProduct(cartItem.productId);
+
+            product.quantity = cartItem.quantity;
+
+            userCart1.push(product);
+            console.log(userCart1[0]);
+        })
+
+        Promise.all(promises)
+        .then(()=>{
+            console.log(userCart1);
+            return res.json(userCart1);    
+        })
     } 
     catch (error) {
-        
+        console.log(error);
+        return res.json({message:err.message});
     }
 }
 function getOrderHistory(req, res){
@@ -98,6 +124,7 @@ function getOrderHistory(req, res){
         if(orders.length==0){
             return res.json({message: "No orders found"})
         }
+        console.log(orders);
         return res.json(orders);
 
     } 
