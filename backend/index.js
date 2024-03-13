@@ -16,9 +16,13 @@ connectToMongoDb("mongodb://127.0.0.1:27017/ecommerce");
 const productRoute = require('./routes/productRoutes');
 const userRoute = require('./routes/userRoutes');
 const cartRoute = require('./routes/cartRoutes');
+const orderRoute = require('./routes/orderRoutes');
+
 app.use('/api/product',productRoute)
 app.use('/api/user',userRoute)
 app.use('/api/cart',cartRoute);
+app.use('/api/order',orderRoute);
+
 
 app.listen(3000,()=>{
     console.log("running on port 3000");

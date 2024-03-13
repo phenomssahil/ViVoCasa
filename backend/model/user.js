@@ -32,19 +32,10 @@ const userSchema = new mongoose.Schema({
             type:Number
         }
     }],
-    order:[{
+    orders:[{
         orderId:{
             type:mongoose.Schema.Types.ObjectId,
             ref:'orders',
-        },
-        status:{
-            type:String,
-            enum:['pending', 'delivered', 'shipped'],
-            default:'pending'
-        },
-        createdAt:{
-            type:Date,
-            default: Date.now()
         }
     }],
     wishlist:[{

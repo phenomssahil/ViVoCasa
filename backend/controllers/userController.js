@@ -103,7 +103,6 @@ async function getUserCart(req, res) {
             product.quantity = cartItem.quantity;
 
             userCart1.push(product);
-            console.log(userCart1[0]);
         })
 
         Promise.all(promises)
