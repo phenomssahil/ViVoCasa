@@ -1,0 +1,44 @@
+
+#subHeading{
+    min-height:40vh;
+    width: 100%;
+    padding:2vw 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#subHeading h1{
+    font-family:"rubik", futura,"Paytone One";
+    font-size: 3.25vw;
+    text-transform: uppercase;
+    width: 45vw;
+}
+#subHeading .sub-heading{
+    font-size: 1.1vw;
+    margin-right:4vw;
+    width: 23vw;
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+    letter-spacing: 1px;
+    line-height: 1.5vw;
+}
+#subHeading .sub-heading .shop-now{
+    display: flex;
+    align-items: center;
+    gap:5px
+}
+#subHeading .sub-heading img{
+    margin-left: 5px;
+    height: 0.7vw;
+    width: 0.7vw;
+}
+#subHeading p{
+    font-family: helvetica;
+}
+#subHeading a{
+    width: 8.2vw;
+    color: #050505;
+    text-decoration: none;
+    border-bottom: 1px solid #050505;
+}

@@ -1,0 +1,78 @@
+import React, { useEffect, useState } from 'react' 
+import './ProductSection.css'
+import CustomProductCard from '../../../components/productCard/CustomProductCard'
+import axios from 'axios'
+import { ProductData } from '../../../types/interfaces'
+
+const ProductSection:React.FC = () => {
+  const [products,setProducts] = useState<ProductData[]>([]);
+
+  useEffect(()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const fetchData = async() => {
+      try {
+        const response = await axios.get(`/api/product/`);
+        const fetchProducts = response.data;
+        setProducts(fetchProducts);
+      } 
+      catch (error) {
+        console.log("error fetching products",error);  
+      }
+    }
+    fetchData();
+  },[])
+  return (
+    <div id='shop-products'>
+      <div className="section1">
+        <div className="part1" style={{width:'30vw'}}> 
+          {products.slice(0,5).map((product,index) => (
+            <div className='productCard' key={index}>
+              <CustomProductCard 
+                imgUrl={product.thumbnailImageUrl} 
+                productId={"/shop/" + product._id} 
+                size={{height:'40vw',width:'30vw'}}
+              />
+              <div className="details">
+                <p>{product.title}</p>
+                <p>${product.price}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="part2" style={{width:'30vw'}}>
+          {products.slice(5,12).map((product,index) => (
+            <div className="productCard" key={index}>
+              <CustomProductCard 
+                imgUrl={product.thumbnailImageUrl} 
+                productId={"/shop/"+product._id} 
+                size={{height:'30vw',width:'30vw'}}
+                />
+              <div className="details">
+                <p>{product.title}</p>
+                <p>${product.price}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="part1" style={{width:'30vw'}}>
+          {products.slice(12,17).map((product,index) => (
+            <div className="productCard" key={index}>
+              <CustomProductCard 
+              
+              imgUrl={product.thumbnailImageUrl} 
+              productId={"/shop/" + product._id} 
+              size={{height:'40vw',width:'30vw'}}
+              />
+              <div className="details">
+                <p>{product.title}</p>
+                <p>${product.price}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default ProductSection

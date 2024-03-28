@@ -1,0 +1,23 @@
+.category-heading h3{
+    padding:1.5vw;
+    padding-top: 9vw;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    font-family:  Helvetica;
+    letter-spacing: 2px;
+}
+.separator-category{
+    margin: 0 1.5vw;
+    height:1px;
+    background-color: black;
+}
+#category{
+    padding: 0 1.5vw;
+    padding-top: 1vw;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom:2vw;
+}

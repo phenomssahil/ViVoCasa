@@ -7,6 +7,9 @@ app.use(express.json())
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+const morgan = require('morgan');
+app.use(morgan('dev'))
+
 const {checkAuth} = require('./middleware/authMiddleware')
 app.use(checkAuth)
 

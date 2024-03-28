@@ -1,0 +1,52 @@
+#about-header{
+    padding-top: 11vw;
+    padding-left: 2vw;
+    position: relative;
+}
+#about-header .heading{
+    height: 30vw;
+    width: 80vw;
+    font-family: futura;
+    font-size: 15vw;
+    line-height: 14vw;
+}
+#about-header .sub-heading{
+    height: 28vw;
+    width: 55vw;
+    align-items: baseline;
+    display: flex;
+    justify-content: end;
+}
+#about-header .sub-heading p{
+    text-align: justify;
+    line-height: 1.6vw;
+    font-family: helvetica;
+    font-size: 1vw;
+    height: 10vw;
+    width: 30vw;
+}
+#about-header .image{
+    height: 55vw;
+    width: 38vw;
+    position: absolute;
+    right:2vw;
+    top:26vw;
+    border-radius: 20px;
+}
+#about-header .heading1{
+    width: 100%;
+    /* height: 13vw; */
+    font-family: futura;
+    font-size: 15vw;
+    line-height: 12vw;
+    word-spacing: -2vw;
+}
+#about-header .heading2{
+    margin-right: 2vw;
+    text-align: end;
+    overflow: hidden;
+    font-family: futura;
+    font-size: 15vw;
+    line-height: 13vw;
+    word-spacing: 0px;
+}

@@ -1,0 +1,50 @@
+.support-heading h3{
+    font-size: 1vw;
+    padding:1.5vw;
+    padding-top: 0vw;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    font-family:  Helvetica;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+.separator-support{
+    margin: 0 1.5vw;
+    height:1px;
+    background-color: black;
+}
+#story-heading{
+    text-align: center;
+}
+#story-heading .story-heading-container{
+    margin: 5vw auto;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#story-heading .story-heading-container h3{
+    font-family:"rubik",futura,"Paytone One";
+    text-transform: uppercase;
+    font-size: 4.8vw;
+    line-height: 4.5vw;
+}
+#story-heading .story-heading-container .button{
+    margin: 2vw;
+    height: 4vw;
+    width: 20vw;
+    padding: 10px;
+    background-color: #050505;
+    color: #fff;
+    border-radius: 50px;
+    border:0px;
+    font-family: helvetica;
+    font-size: 1.2vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.story-heading-container a{
+    text-decoration: none;
+}

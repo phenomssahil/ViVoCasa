@@ -7,7 +7,8 @@ const {
     updateProduct,
     deleteProduct,
     getProductByCategory,
-    getProductBySearch
+    getProductBySearch,
+    getProductByRoom
 } 
 = require('../controllers/productController');
 
@@ -23,6 +24,7 @@ router.route('/id/:id')
 .delete(isAdmin,deleteProduct)
 
 router.get('/category/:id',getProductByCategory)
+router.get('/rooms/:id',getProductByRoom)
 router.get('/search',getProductBySearch)
 
 module.exports = router;

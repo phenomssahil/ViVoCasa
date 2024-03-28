@@ -1,0 +1,14 @@
+.image-section .heading{
+    width: 30vw;
+    height: 10vw;
+    /* margin: 1vw ; */
+    padding: 2vw;
+    /* background-color: red; */
+    font-family: futura;
+    font-size: 4vw;
+}
+.image-section .image-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,42 @@
+#shop-products .section1{
+    display: flex;
+    justify-content: center;
+    gap:2vw
+}
+#shop-products .section1 .productCard{
+    position: relative;
+}
+#shop-products .productCard .details{
+    visibility: hidden;
+    padding: 1vw;
+    border-radius: 20px;
+    background-color: #f0f0eb;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    opacity: 0;
+    transition:opacity 0.5s ease , visibility 0.5s ease-in-out;
+}
+#shop-products .productCard:hover .details{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+#shop-products  p{
+    font-size: 1vw;
+    font-family: futura;
+    margin: 3px;
+    text-transform: capitalize;
+}
+#shop-products .part1{
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+}
+#shop-products .part2{
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+}

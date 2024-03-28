@@ -1,0 +1,24 @@
+#ImageCard{
+    /* cursor: pointer; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:1vw;
+}
+#ImageCard .Image-img img:hover{
+    transform:scale(1.05);
+    border-radius: 10px;
+}
+#ImageCard .Image-img{
+    margin: 1vw 1vw;
+    width:45vw;
+    height:45vh;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.Image-img img{
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

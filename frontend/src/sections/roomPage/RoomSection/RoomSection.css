@@ -1,0 +1,25 @@
+#room-section{
+    margin: auto;
+    /* min-height:100vh ; */
+    margin-top: 7.5vw;
+    /* padding-left:4vw; */
+    width: 94vw;
+}
+#room-section .card{
+    /* background-color: red; */
+    display: flex;
+    padding: 1vw;
+    justify-content: space-between;
+    align-items: center;
+}
+#room-section .card h1{
+    /* margin-bottom: 1vw; */
+    width: 40vw;
+    line-height: 7.5vw;
+    /* background-color: red; */
+    text-align: end;
+    font-size: 9vw;
+    text-transform: uppercase;
+    font-family: futura;
+
+}

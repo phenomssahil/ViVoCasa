@@ -1,0 +1,14 @@
+.recommendations .heading{
+    width: 60vw;
+    height: 10vw;
+    /* margin: 1vw ; */
+    padding: 2vw;
+    /* background-color: red; */
+    font-family: futura;
+    font-size: 3vw;
+}
+.recommendations .products{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}

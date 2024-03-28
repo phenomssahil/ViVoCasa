@@ -1,0 +1,37 @@
+#smallProductCard a{
+    text-decoration: none;
+    color:#050505;
+}
+#smallProductCard .product{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:1vw;
+    text-transform: uppercase;
+    font-family: helvetica;
+}
+#smallProductCard .product-img img:hover{
+    transform:scale(1.05);
+    border-radius: 10px;
+}
+#smallProductCard .product-img{
+    margin: 1vw 1vw;
+    width:25vw;
+    height:45vh;
+    overflow: hidden;
+    border-radius: 10px;
+}
+#smallProductCard .product h6{
+    font-size: .9vw;
+    font-family: helvetica;
+    margin:1px;
+    font-weight: 100;
+}
+#smallProductCard .product-img img{
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

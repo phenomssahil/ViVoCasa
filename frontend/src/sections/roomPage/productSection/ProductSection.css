@@ -1,0 +1,19 @@
+#room-products{
+    margin-top: 7vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vw;
+    justify-content: center;
+}
+#product-not-found{
+    height: 10vw;
+    width: 60vw;
+    /* background-color: red; */
+    margin: auto;
+    margin-top:25vh;
+    text-align: center;
+}
+#product-not-found h2{
+    font-family: futura;
+    
+}

@@ -1,0 +1,109 @@
+#header{
+    min-height: 100vh;
+    padding: 2vw;
+    padding-top: 10vw;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    background-color: #fff;
+    /* gap:5vw; */
+}
+#header .part1{
+    padding-top: 3vw;
+    width: 25vw;
+    height: 5vw;
+    padding-top: 8vw;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+}
+#header .part1 h1{
+    font-family: futura;
+    font-size: 3vw;
+    /* background-color: red; */
+    line-height: 3.2vw;
+    letter-spacing: -1px;
+}
+#header .add-to-cart{
+    color: #fff;
+    margin-top: 4vw;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    justify-content: space-between;
+    padding: 8px 30px;
+    border-radius: 20px;
+    background-color: black;
+    font-family: helvetica;
+}
+#header .quantity-btn{
+    display: flex;
+    align-items: center;
+}
+#header .add-to-cart button{
+    font-size: 0.8vw;
+    font-family: helvetica;
+    font-weight: 700;
+    color: #fff;
+    background-color: black;
+    border: none;
+    margin:auto 10px;
+    cursor: pointer;
+    height: 2vw;
+    width: 6vw;
+}
+#header .add-to-cart .increment,#header .add-to-cart .decrement{
+    font-size: 1vw;
+    height: 2vw;
+    width: 1vw;
+}
+#header .add-to-cart p{
+    font-family: helvetica;
+    margin:5px;
+    font-size: 0.9vw;
+}
+#header .main-image{
+    width: 40vw;
+    height: 40vw;
+    text-align: center;
+}
+#header .main-image img{
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+}
+#header .details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#header .details-sub{
+    width: 20vw;
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 2vw;
+    line-height: 1.7vw;
+    
+    /* padding-top: 7vw; */
+    /* background-color: red; */
+}
+#header .details-sub p{
+    font-family: helvetica;
+    margin: 10px;
+    /* background-color: red; */
+}
+
+#header .details-sub .heading {
+    color: grey;
+    min-width: 6vw;
+    width: 6vw;
+    font-weight: 500;
+    font-size: 0.8vw;
+}
+#header .separator{
+    width: 95vw;
+    height: 1px;
+    background-color: black;
+    margin: auto;
+}

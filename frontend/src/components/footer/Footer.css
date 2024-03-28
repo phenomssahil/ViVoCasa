@@ -1,0 +1,87 @@
+#footer{
+    min-height: 50vh;
+    padding:1.5vw;
+    padding-bottom: 3vw;
+    margin-top: 10vw;
+}
+#footer .footer1{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#footer .footer1  h6{
+    font-size: 0.9vw;
+    text-transform: uppercase;
+    color:grey;
+    font-family: helvetica;
+    margin-bottom: 1.1vw;
+}
+#footer .footer1 .social{
+    height: 15vw;
+    width:10vw;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    line-height: 1.5vw;
+}
+#footer .footer1 .logo{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-10%);
+    margin-top: 8vw;
+    display: flex;
+    flex-direction: column;
+    height: 30vw;
+    width: 35vw;
+    align-items: center;
+}
+
+#footer .footer1 .logo img{
+    height: 25vw;
+    width:25vw;
+}
+#footer .footer1 .others{
+    height: 15vw;
+    width:10vw;
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    line-height: 1.5vw;
+}
+#footer a{
+    font-family: helvetica;
+    font-size: 0.9vw;
+    text-decoration: none;
+    color: #050505;
+    letter-spacing: 0px;
+}
+.tnc h6{
+    font-size: 0.8vw;
+    margin: 0 1vw;
+    font-weight: 200;
+}
+.tnc{
+    /* background-color: red; */
+    display: flex;
+    /* margin-top: 5vw;
+    padding-bottom: 5vw; */
+}
+#footer .footer2{
+    font-size: 1.1vw;
+    text-align: center;
+    margin:auto;
+    margin-top: 8vw;
+    width: 60%;
+    height: 10vw;
+}
+.footer2 p{
+    font-family: helvetica;
+    line-height: 1.4vw;
+}
+@media (min-width:701px){
+   
+    #footer .tnc-mobile{
+        display: none;
+    }
+}
