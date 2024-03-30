@@ -44,9 +44,9 @@ const Product:React.FC = () => {
       {product &&(
         <RecommendationSection products={recProducts}/>
       )}
-      
+      {product &&(
         <Footer/>
-      
+      )}
       
     </>
   )

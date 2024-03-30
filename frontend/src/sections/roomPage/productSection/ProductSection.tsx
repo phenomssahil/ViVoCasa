@@ -15,7 +15,6 @@ const ProductSection:React.FC<ProductSectionProps> = ({shopBy}) => {
   const [statusCode,setStatusCode] = useState<number>(0);
 
   useEffect(()=>{
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchData = async() => {
       try {
         const response = await axios.get(`/api/product/${shopBy}/${id}`);

@@ -9,7 +9,6 @@ import './RoomNavbar.css'
 const RoomNavbar:React.FC = () => {
     const navigate = useNavigate();
     const handleClick = (room:string) => {
-        
         window.scrollTo({ top: 0, behavior: 'smooth' });
         navigate(`/rooms/${room}`)
     }

@@ -260,7 +260,7 @@
     color: #050505;
 }
 #nav .cart .thank-you{
-    width: 63vw;
+    width: 55vw;
     height: 15vw;
     position: absolute;
     bottom: 1vw;
@@ -272,7 +272,7 @@
 #nav .cart .thank-you h1{
     text-transform: uppercase;
     font-family: futura;
-    font-size: 4vw;
+    font-size: 3vw;
     line-height: 3.5vw;
 }
 @media (max-width:700px) {

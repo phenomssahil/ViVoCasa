@@ -16,10 +16,10 @@ const RecommendationSection:React.FC<ProductCard> = ({products}) => {
 
     const navigate = useNavigate();
 
-  const handleClick = (productId: string) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    navigate(`/shop/${productId}`);
-  };
+    const handleClick = (productId: string) => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        navigate(`/shop/${productId}`);
+    };
     
   return (
     <div className='recommendations'>

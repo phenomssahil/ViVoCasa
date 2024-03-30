@@ -20,6 +20,17 @@ interface CartStateProps {
     setIsCartUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
+    useEffect(()=>{
+        const items =  ShoppingCart.getCartFromLocalStorage();
+        const totalCost = items?.reduce((total,item)=>total + item.product.price*item.quantity,0);
+        setTotal(totalCost);
+        setCart(items);
+        if(isCartUpdated){
+            setIsCartUpdated(false)
+            openCart()
+        }
+    },[isCartUpdated])
+
     const [isMenuOpen,setIsMenuOpen] = useState(false);
     const [isCartOpen,setIsCartOpen] = useState(false);
 
@@ -31,19 +42,13 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
         setIsMenuOpen(false);
         setIsCartOpen(!isCartOpen);
     }
-
+    const openCart = () => {
+        setIsMenuOpen(false);
+        setIsCartOpen(true);
+    }
+    
     const[cart,setCart] = useState<CartItems[] | null>([]);
     const[total,setTotal] = useState<number | undefined>(0);
-    
-    useEffect(()=>{
-        const items =  ShoppingCart.getCartFromLocalStorage();
-        const totalCost = items?.reduce((total,item)=>total + item.product.price*item.quantity,0);
-        setTotal(totalCost);
-        setCart(items);
-        if(isCartUpdated){
-            setIsCartUpdated(false)
-        }
-    },[isCartUpdated])
 
     function incQty(product:CartItems){
         if(cart!=null){
@@ -149,8 +154,12 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
 
                 {cart?.map((product:CartItems,index:number)=>(    
                     <div key={index}>
-                    <Link to={`/shop/${product.product._id}`} onClick={handleCartClick} className="cart-items" >
-                        <p className='title'>{product.product.title}</p>
+                    <div className="cart-items" >
+                        <Link to={`/shop/${product.product._id}`} onClick={handleCartClick} >
+                            <p className='title'>
+                                {product.product.title}
+                            </p>
+                        </Link>
                         <div className="quantity-btn">
                             <button onClick={()=>decQty(product)} className='decrement'>-</button>
                             <p>{product.quantity}</p>
@@ -160,7 +169,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                             <p>${Math.floor(product.product.price)*product.quantity}</p>
                             <div onClick={()=>removeItem(product)} className="delete"><img src={whiteClose} alt="" /></div>
                         </div>
-                    </Link>
+                    </div>
                     <div className="separator"></div>
                     </div>        
                 ))}
