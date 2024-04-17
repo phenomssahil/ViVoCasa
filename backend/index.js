@@ -10,6 +10,11 @@ app.use(cookieParser());
 const morgan = require('morgan');
 app.use(morgan('dev'))
 
+const cors = require('cors');
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
+
 const {checkAuth} = require('./middleware/authMiddleware')
 app.use(checkAuth)
 
@@ -25,6 +30,41 @@ app.use('/api/product',productRoute)
 app.use('/api/user',userRoute)
 app.use('/api/cart',cartRoute);
 app.use('/api/order',orderRoute);
+
+const Product = require('./model/products')
+require("dotenv").config()
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
+app.post('/api/createCheckoutSession',async(req,res)=>{
+    try{
+        // console.log(req.body.items);
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types:['card'],
+            mode:'payment',
+            line_items: await Promise.all(req.body.items.map(async(item) => {
+                const itemFromDB = await Product.findById({_id:item.product._id})
+                return{
+                    price_data:{
+                        currency:'inr',
+                        product_data:{
+                            name:itemFromDB.title
+                        },
+                        unit_amount:itemFromDB.price * 100
+                    },
+                    quantity:item.quantity,
+                }
+            })),
+            shipping_cost:{
+                amount:req.body.shipping
+            },
+            success_url:`${process.env.CLIENT_URL}/success`,
+            cancel_url:'http://localhost:5173/checkout'
+        })
+        res.json({url:session.url})
+    }
+    catch(err){
+        return res.status(500).json({error:err.message});
+    }
+})
 
 
 app.listen(3000,()=>{

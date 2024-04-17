@@ -1,18 +1,23 @@
 #checkout-customer{
-    width: 65vw;
+    width: 85%;
     min-height: 5vw;
     padding: 2vw;
-    /* background-color: red; */
 }
 #checkout-customer .heading-container{
-    width: 58vw;
+    width: 53vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap:1vw
 }
+#checkout-customer .heading-container .heading{
+    width: 11vw;
+    text-transform: uppercase;
+    font-size: 1.8vw;
+    font-family: futura;
+}
 #checkout-customer .heading-container .email{
-    width:40vw ;
+    width:35vw ;
     font-size: 0.9vw;
 }
 #checkout-customer .heading-container button{
@@ -22,12 +27,6 @@
     font-size: 0.9vw;
     border: 0.5px solid #a7a6a6;
     border-radius: 20px;
-}
-#checkout-customer .heading-container .heading{
-    width: 11vw;
-    text-transform: uppercase;
-    font-size: 1.8vw;
-    font-family: futura;
 }
 #checkout-customer .email-container{
     /* width: 60vw; */

@@ -14,7 +14,6 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
         const billingData = localStorage.getItem('billingData');
         if(billingData){   
             const billingDataJSON = JSON.parse(billingData)
-            console.log(billingDataJSON);
             setFormData(billingDataJSON);
         }
     },[formVisited])
@@ -42,7 +41,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
             formData.state.trim() === '' || formData.pincode.trim()==='') {
             return;
         }
-        localStorage.setItem('shippingData', JSON.stringify(formData));
+        localStorage.setItem('billingData', JSON.stringify(formData));
         setIsEditSelected('payment')
         
     }
@@ -50,7 +49,6 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
         setFormData({ ...formData, [event.target.name]: event.target.value });
     }
     function handleEditClick(){
-        
         setIsEditSelected('billing');
     }
 

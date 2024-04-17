@@ -131,7 +131,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                 <Link to="/rooms">Rooms</Link>
                 <Link to="/ideas&inspiration" className="navbar-idea">
                     Ideas & Inspiration 
-                    <img src={whiteArrow} alt="arrow"/>
+                    {/* <img src={whiteArrow} alt="arrow"/> */}
                 </Link>
                 <Link to="/about">about us</Link>
             </div>

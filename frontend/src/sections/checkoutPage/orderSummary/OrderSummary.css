@@ -1,0 +1,26 @@
+#checkout-orderSummary{
+    /* width:15vw; */
+    min-height: 5vw;
+    padding: 0 1vw;
+    /* background-color: red; */
+}
+#checkout-orderSummary p{
+    font-family: helvetica;
+    font-size: 1vw;
+
+}
+#checkout-orderSummary .heading-container{
+    padding-left: 2vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    /* width: 58vw; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1vw
+}
+#checkout-orderSummary .heading-container .heading{
+    text-transform: uppercase;
+    font-size: 1.8vw;
+    font-family: futura;
+}

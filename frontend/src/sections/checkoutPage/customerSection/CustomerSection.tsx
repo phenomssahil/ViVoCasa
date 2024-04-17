@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './CustomerSection.css'
-import { CartItems, ShoppingCart } from '../../../components/ShoppingCart'
 import { formVisitedProps } from '../../../pages/Checkout'
 
 interface CustomerSectionProps{
@@ -13,6 +12,19 @@ interface CustomerSectionProps{
 const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
     const[signin,setSignin] = useState(false);
     const[signup,setSignup] = useState(false);
+
+    useEffect(()=>{
+        const customerData = localStorage.getItem('customerData');
+        if(customerData){   
+            const customerDataJSON = JSON.parse(customerData)
+            setFormData(customerDataJSON);
+
+            const allFormVisited = formVisited;
+            allFormVisited.customer=true;
+            setFormVisited(allFormVisited)
+            setIsEditSelected('shipping')
+        }
+    },[])
 
     const handleSignInClick = () => {
         setSignin(!signin)

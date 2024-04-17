@@ -9,6 +9,7 @@ import CategoryId from "./pages/CategoryId";
 import Ideas from "./pages/Ideas";
 import About from "./pages/About";
 import Checkout from "./pages/Checkout";
+import Success from "./pages/Success";
 
 const App: React.FC = () =>{
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () =>{
         <Route path="/ideas&inspiration" element={<Ideas/>}/>
         <Route path="/about" element={<About/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
+        <Route path='/success' element={<Success/>}/>
       </Routes>
     </>
   )

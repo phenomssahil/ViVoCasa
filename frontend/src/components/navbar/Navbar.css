@@ -82,10 +82,10 @@
 #nav .full-menu a{
     font-family: futura;
     text-transform: uppercase;
-    font-size: 6vw;
+    font-size: 8vw;
     color: #fff;
     text-decoration: none;
-    line-height: 6vw;
+    line-height: 8vw;
 }
 #nav .full-menu .navbar{
     display: flex;

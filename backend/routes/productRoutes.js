@@ -16,7 +16,7 @@ const { isAdmin } = require('../middleware/authMiddleware');
 
 router.route('/')
 .get(getAllProducts)
-.post(isAdmin,createProduct)
+.post(isAdmin,createProduct) 
 
 router.route('/id/:id')
 .get(getProductById)

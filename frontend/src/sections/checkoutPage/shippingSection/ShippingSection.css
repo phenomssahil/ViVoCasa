@@ -1,17 +1,17 @@
 #checkout-shipping{
-    width: 65vw;
+    width: 85%;
     min-height: 5vw;
     padding: 2vw;
     /* background-color: red; */
 }
 #checkout-shipping .heading-container{
-    width: 58vw;
+    width: 53vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 #checkout-shipping .heading-container .shipping-details{
-    width: 40vw;
+    width: 35vw;
     font-size: 0.9vw;
 }
 #checkout-shipping .heading-container .shipping-address{

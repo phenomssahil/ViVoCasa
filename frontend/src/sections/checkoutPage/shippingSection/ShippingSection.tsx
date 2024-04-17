@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './ShippingSection.css'
-import downArrow from '../../../assets/arrow.png'
 import { formVisitedProps } from '../../../pages/Checkout'
 
 interface ShippingSectionProps{
@@ -12,15 +11,19 @@ interface ShippingSectionProps{
 
 const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
     
-    // useEffect(()=>{
-    //     if(formVisited){
-    //         setFormVisited(false)
-    //     }
-    // },[isEditSelected=='shipping'])
-    
-    // useEffect(()=>{
-    //     console.log(formVisited);
-    // },[formVisited])
+    useEffect(()=>{
+        const shippingData = localStorage.getItem('shippingData');
+        if(shippingData){   
+            const shippingDataJSON = JSON.parse(shippingData)
+            setFormData(shippingDataJSON);
+
+            const allFormVisited = formVisited;
+            allFormVisited.shipping=true;
+            allFormVisited.billing=true;
+            setFormVisited(allFormVisited)
+            setIsEditSelected('payment')
+        }
+    },[])
 
     const [formData, setFormData] = useState({
         firstName: '',

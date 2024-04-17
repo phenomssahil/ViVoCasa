@@ -11,8 +11,6 @@ export class ShoppingCart{
   public static addItem(product:ProductData,quantity:number=1):CartItems[]{
     const existingItem = this.items.find(item => item.product._id === product._id);
 
-    console.log(window.localStorage);
-
     if(existingItem){
       existingItem.quantity += quantity;
       return this.items

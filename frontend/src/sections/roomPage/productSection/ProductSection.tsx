@@ -18,11 +18,9 @@ const ProductSection:React.FC<ProductSectionProps> = ({shopBy}) => {
     const fetchData = async() => {
       try {
         const response = await axios.get(`/api/product/${shopBy}/${id}`);
-        console.log("response:",response);
         setStatusCode(response.status);
         if(statusCode!=404){
             const fetchProducts = response.data;
-            console.log(fetchProducts);
             setProducts(fetchProducts);
         }
       } 

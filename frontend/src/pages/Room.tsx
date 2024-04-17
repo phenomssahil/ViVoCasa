@@ -10,7 +10,6 @@ const Room:React.FC = () => {
   return (
     <>
       <Navbar isCartUpdated={isCartUpdated} setIsCartUpdated={setIsCartUpdated}/>
-
         <RoomNavbar/>
         <RoomSection/>
         <Footer/>
