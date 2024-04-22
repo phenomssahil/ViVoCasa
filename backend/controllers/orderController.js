@@ -1,5 +1,6 @@
 const Orders = require('../model/orders')
 const uniqid = require('uniqid');
+const Users = require('../model/user');
 
 async function getAllOrders(req, res) {
     try {
@@ -9,7 +10,7 @@ async function getAllOrders(req, res) {
     } 
     catch (error) {
         console.log(error);
-        res.json({error:error.message});
+        res.status(500).json({error:error.message});
     }
 }
 async function getOrderById(req, res) {
@@ -21,24 +22,22 @@ async function getOrderById(req, res) {
     } 
     catch (error) {
         console.log(error);
-        res.json({error:error.message});
+        res.status(500).json({error:error.message});
     }
 }
 async function createOrder(req,res){
     try {
-        const cart = req.user.cart[0];
+        const cart = req.user.cart;
+        const email = req.user.email
 
-        const orderId = uniqid(8);
-        console.log(orderId);
-
-        await Orders.create({orderId: orderId,products:cart})
+        const order = await Orders.create({products:cart})
+        await Users.updateOne({email:email},{$push:{orders:[{orderId:order._id}]}})
     
-        res.send("order created successfully");
-        // res.redirect("/confirmationPage");
+        res.json({"message":"order created successfully"});
     } 
     catch (error) {
         console.log(error);
-        res.json({error:error.message});
+        res.status(500).json({error:error.message});
     }
 }
 async function updateOrderStatus(req,res){
@@ -48,7 +47,7 @@ async function updateOrderStatus(req,res){
     } 
     catch (error) {
         console.log(error);
-        res.json({error:error.message});
+        res.status(500).json({error:error.message});
     }
 }
 

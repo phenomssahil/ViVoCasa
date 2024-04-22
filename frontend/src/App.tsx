@@ -10,6 +10,9 @@ import Ideas from "./pages/Ideas";
 import About from "./pages/About";
 import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
 const App: React.FC = () =>{
   return (
@@ -25,6 +28,10 @@ const App: React.FC = () =>{
         <Route path="/about" element={<About/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
         <Route path='/success' element={<Success/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/signup' element={<Register/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+
       </Routes>
     </>
   )

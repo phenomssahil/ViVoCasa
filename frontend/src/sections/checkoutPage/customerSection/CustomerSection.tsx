@@ -25,7 +25,6 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             setIsEditSelected('shipping')
         }
     },[])
-
     const handleSignInClick = () => {
         setSignin(!signin)
 
@@ -40,14 +39,12 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         allFormVisited.customer=true;
         setFormVisited(allFormVisited)
     }
-
     const [formData, setFormData] = useState({
         firstName: '',
         lastName:'',
         email: '',
         password:'',
     });
-
     const handleSubmit = (event:any) => {
         event.preventDefault();
         if(!signin && !signup){
@@ -77,9 +74,9 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
     
 
   return (
-    <div id='checkout-customer'>
-        <div className="heading-container">
-            <h1 className="heading ">Customer</h1>
+    <div id='checkout-customer' className='p-[2vw]'>
+        <div className="flex justify-between items-center gap-[1vw]">
+            <h1 className="font-futura text-[1.8vw] uppercase">Customer</h1>
             
             {(formVisited.customer==true && isEditSelected!='customer') && (
                 <>
@@ -93,32 +90,36 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         <form onSubmit={handleSubmit} action="">
             <div className="email-container">
                 <div className="email">
+
                     {signup && (<div className='name'>
                         <div className='name1'>
                             <p>First Name</p>
                             <input type="text" name='firstName' value={formData.firstName} onChange={handleFormChange}/>
                             {formVisited.customer===true && formData.firstName.trim()==='' &&(
-                                <p className='text-red-500'>First Name is required</p>
+                                <p className='text-red-500 text-[0.9vw] mb-4'>First Name is required</p>
                             )}
                         </div>
                         <div className='name1'>
                             <p>Last Name</p>
                             <input type="text" name='lastName'value={formData.lastName} onChange={handleFormChange}/>
+                            {formVisited.customer===true && formData.lastName.trim()==='' &&(
+                                <p className='text-red-500 text-[0.9vw] mb-4'>Last Name is required</p>
+                            )}
                         </div>
                     </div>)}
                     
-                    
-                    <p>Email</p>
+                    <p className=''>Email</p>
                     <input type="text" name='email' value={formData.email} onChange={handleFormChange}/>
+
                     {formVisited.customer===true && formData.email.trim()==='' &&(
-                        <p className='text-red-500'>Email address is required</p>
+                        <p className='text-red-500 text-[0.9vw] mb-4'>Email address is required</p>
                     )}
                     
                     {signin && (<>
                         <p className='mt-3'>Password</p>
                         <input type="password" name='password' value={formData.password} onChange={handleFormChange}/>
                         {formVisited.customer===true && formData.password.trim()==='' &&(
-                            <p className='text-red-500'>Password is required</p>
+                            <p className='text-red-500 text-[0.9vw]'>Password is required</p>
                         )}
                         <div className="signup">
                             {!signup && (<p className='mt-3'>Forgot Password?</p>)}

@@ -1,57 +1,76 @@
 const { request } = require('express');
 const User = require('../model/user')
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 async function handleUserSignup(req,res){
     try {
         const {name,email,password} = req.body;
         
+        if(!name || !email || !password) return res.status(302).json({message:'all fields are required'})
+        
         const userExists = await User.findOne({email:email});
-        if(userExists) return res.status(400).redirect('/signup');
+        if(userExists) return res.status(400).json({message:'user already exists'});
 
-        if(req.body.address){
-            const address = req.body.address;
-            await User.create({
-                name,
-                email,
-                password,
-                address
-            })
-            return res.status(201).redirect('/login');
-        }
-        await User.create({
-            name,
-            email,
-            password
+        const encryptedPassword = await bcrypt.hash(password,10);
+        console.log(encryptedPassword);
+        
+        const user = await User.create({
+            name:name,
+            email:email,
+            password:encryptedPassword,
         })
-        return res.status(201).redirect('/login');
-    } 
-    catch (error) {
-        return res.status(500).redirect('/signup');
-    }
-}
-async function handleUserLogin(req,res){
-    try {
-        const {email,password} = req.body;
-        const user = await User.findOne({email: email, password: password});
 
-        if(!user) return res.status(403).redirect('/login');
-
-        request.user = user;
+        if (!user) {
+            return res.status(500).json({ message: 'Failed to create user' });
+        }
+        delete user.password;
+        req.user = user;
 
         const token = jwt.sign(
             {email:user.email},
             'secret'
         )
-        res.status(201).cookie('token',token).redirect('/');
+        return res.status(201).cookie('token',token).json({message:'user created successfully'});
+    
     } 
     catch (error) {
-        res.status(error.status).redirect('/login');
+        return res.json({error: error});
+    }
+}
+async function handleUserLogin(req,res){
+    try {
+        const {email,password} = req.body;
+        const user = await User.findOne({email: email});
+
+        if(!user) return res.status(401).json({ message : "user not found" });
+
+        delete user.password;
+        bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: 'Internal server error' });
+            }
+            if (result) {
+                req.user = user;
+
+                const token = jwt.sign(
+                    {email:user.email},
+                    'secret'
+                )
+                return res.status(200).cookie('token',token).json({ message: 'Login successful' });
+            } 
+            else {
+                return res.status(401).json({ message: 'Incorrect password' });
+            }
+        });
+    } 
+    catch (error) {
+        return res.status(error.status).redirect('/login');
     }    
 }
 async function handleUserLogout(req, res) {
     try {
-        return res.clearCookie('token').redirect('/login');
+        return res.clearCookie('token').json('logout successful');
     } 
     catch (error) {
         res.json({error: error.message});

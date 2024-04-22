@@ -12,7 +12,10 @@ async function checkAuth(req, res, next) {
     next();
 }
 async function isLoggedIn(req, res, next) {
-    if(!req.user) return res.status(403).json({message:"not logged in"});
+    if(!req.user) {
+        console.log("not logged in");
+        return res.status(403).json({message:"not logged in"});
+    }
     next();
 }
 async function isAdmin(req, res, next) {

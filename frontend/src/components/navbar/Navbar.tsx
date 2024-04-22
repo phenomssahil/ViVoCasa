@@ -9,25 +9,59 @@ import whiteLogo from '../../assets/white logo.png'
 import cartIcon from "../../assets/cart.png"
 import whitecart from '../../assets/white cart.png'
 import whiteCloseMenu from '../../assets/white close-menu.png'
-import whiteArrow from '../../assets/white arrow.png'
 import whiteMenu from '../../assets/white menu.png'
+import profileIcon from '../../assets/profile icon.png'
 import { CartItems } from '../ShoppingCart'
 import { ShoppingCart } from '../ShoppingCart'
 import whiteClose from '../../assets/white close-menu.png'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 interface CartStateProps {
     isCartUpdated: boolean;
     setIsCartUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
+    const[cart,setCart] = useState<CartItems[] | null>([]);
+    const[total,setTotal] = useState<number | undefined>(0);
+    const[token,setToken] = useState<string | undefined>();
+
     useEffect(()=>{
-        const items =  ShoppingCart.getCartFromLocalStorage();
-        const totalCost = items?.reduce((total,item)=>total + item.product.price*item.quantity,0);
-        setTotal(totalCost);
-        setCart(items);
-        if(isCartUpdated){
-            setIsCartUpdated(false)
-            openCart()
+        var cookie = Cookies.get('token');
+        setToken(cookie)
+    },[])
+    
+    useEffect(()=>{
+        if(!token){
+            const items =  ShoppingCart.getCartFromLocalStorage();
+            const totalCost = items?.reduce((total,item)=>total + item.product.price*item.quantity,0);
+            setTotal(totalCost);
+            setCart(items);
+            if(isCartUpdated){
+                setIsCartUpdated(false)
+                openCart()
+            }
+        }
+        else{
+            async function fetchCart(){
+                const cartResponse = await axios.get('/api/user/cart');
+                const items:CartItems[]|null = cartResponse.data;
+                const totalCost = items?.reduce((total,item)=>total + item.product.price*item.quantity,0);
+                setTotal(totalCost);
+                items?.sort((a:CartItems,b:CartItems)=>{
+                    return a.product._id.localeCompare(b.product._id)
+                })
+                setCart(items);
+                if(isCartUpdated){
+                    setIsCartUpdated(false)
+                    openCart()
+                }
+                if(items){
+                    ShoppingCart.saveCartToLocalStorage(items)
+                }
+            }
+            fetchCart()
         }
     },[isCartUpdated])
 
@@ -46,9 +80,6 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
         setIsMenuOpen(false);
         setIsCartOpen(true);
     }
-    
-    const[cart,setCart] = useState<CartItems[] | null>([]);
-    const[total,setTotal] = useState<number | undefined>(0);
 
     function incQty(product:CartItems){
         if(cart!=null){
@@ -57,9 +88,23 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             if(index!=-1){
                 updatedCart = [...cart]
                 updatedCart[index].quantity += 1;
-                setCart(updatedCart);
-                setIsCartUpdated(true);
-                ShoppingCart.saveCartToLocalStorage(updatedCart);
+                
+                if(!token){
+                    ShoppingCart.saveCartToLocalStorage(updatedCart);
+                    setCart(updatedCart);
+                    setIsCartUpdated(true);
+                }
+                else{
+                    axios.post('/api/cart',{
+                        productId:updatedCart[index].product._id,
+                        quantity:1
+                    })
+                    .then(()=>{
+                        setCart(updatedCart);
+
+                        setIsCartUpdated(true);
+                    })
+                }
             }
         }
     }
@@ -71,9 +116,22 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                 updatedCart = [...cart]
                 if(updatedCart[index].quantity>1){
                     updatedCart[index].quantity -= 1;
-                    setCart(updatedCart);
-                    setIsCartUpdated(true);
-                    ShoppingCart.saveCartToLocalStorage(updatedCart);
+                    
+                    if(!token){
+                        ShoppingCart.saveCartToLocalStorage(updatedCart);
+                        setCart(updatedCart);
+                        setIsCartUpdated(true);
+                    }
+                    else{
+                        axios.post('/api/cart',{
+                            productId:updatedCart[index].product._id,
+                            quantity:-1
+                        })
+                        .then(()=>{
+                            setCart(updatedCart);
+                            setIsCartUpdated(true);
+                        })
+                    }
                 }
             }
         }
@@ -84,10 +142,24 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             let updatedCart:CartItems[];
             if(index!=null){
                 updatedCart = [...cart]
-                updatedCart.splice(index,1)
-                setCart(updatedCart);
-                setIsCartUpdated(true);
-                ShoppingCart.saveCartToLocalStorage(updatedCart);
+                
+                if(!token){
+                    updatedCart.splice(index,1);
+                    ShoppingCart.saveCartToLocalStorage(updatedCart);
+                    setCart(updatedCart);
+                    setIsCartUpdated(true);
+                }
+                else{
+                    axios.delete('/api/cart',{
+                        data:{
+                            productId:updatedCart[index].product._id,
+                        }
+                    })
+                    .then(()=>{
+                        setCart(updatedCart);
+                        setIsCartUpdated(true);
+                    })
+                }
             }
         }
     }
@@ -109,6 +181,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                     <img src={arrow} alt="arrow"/>
                 </Link>
                 <Link to="/about">about us</Link>
+                <Link to="/profile"><img className='w-[1.2vw] h-[1.2vw]' src={profileIcon} alt="" /></Link>
             </div>
             <div className="icons buttons ">
                 <div id="menu-btn" onClick={handleMenuClick}>
@@ -134,6 +207,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                     {/* <img src={whiteArrow} alt="arrow"/> */}
                 </Link>
                 <Link to="/about">about us</Link>
+                <Link to="/login">Sign in</Link>
             </div>
         </div>
         <div className={`cart ${isCartOpen? 'active':''}`}>
@@ -186,11 +260,16 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                     <p className='heading'>SUBTOTAL</p>
                     {total &&<p>${Math.floor(total)}</p>}
                 </div>
-                <Link to='/checkout'>
+                {cart && (<Link to='/checkout'>
                     <div onClick={handleCartClick} className="submit">
                         <h5>CHECKOUT</h5>
                     </div>
-                </Link>
+                </Link>)}
+                {(cart==null || cart.length==0 )&&(
+                    <div onClick={()=>alert("cart is empty")} className="submit">
+                    <h5>CHECKOUT</h5>
+                </div>
+                )}
             </div>
             <div className="thank-you">
                 <h1>THANK YOU for choosing us and Transforming Your Home 

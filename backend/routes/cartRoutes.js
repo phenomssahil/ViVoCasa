@@ -9,7 +9,7 @@ const {
 = require('../controllers/cartController');
 
 router.get('/',isLoggedIn,getUserCart);
-router.post('/add',isLoggedIn,addToCart);
-router.post('/add',isLoggedIn,removeItemFromCart);
+router.post('/',isLoggedIn,addToCart);
+router.delete('/',isLoggedIn,removeItemFromCart);
 
 module.exports = router;

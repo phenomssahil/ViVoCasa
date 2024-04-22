@@ -16,7 +16,7 @@ router.get('/logout',authController.handleUserLogout);
 router.route('/cart')
 .get(isLoggedIn,userController.getUserCart);
 
-router.get('/order',isLoggedIn,userController.getOrderHistory);
+router.get('/orders',isLoggedIn,userController.getOrderHistory);
 router.get('/wishlist',isLoggedIn,userController.getUserWishlist);
 
 router.route('/profile')
@@ -26,5 +26,13 @@ router.route('/profile')
 router.route('/profile/address')
 .get(isLoggedIn,userController.getUserAddress)
 .put(isLoggedIn,userController.updateUserAddress);
+
+router.route('/profile/paymentMethod')
+.get(isLoggedIn,userController.getPaymentMethods)
+.put(isLoggedIn,userController.updatePaymentMethod)
+.post(isLoggedIn,userController.addPaymentMethod)
+.delete(isLoggedIn,userController.deletePaymentMethod)
+
+router.put('/profile/updatePassword',isLoggedIn,userController.updatePassword)
 
 module.exports = router;

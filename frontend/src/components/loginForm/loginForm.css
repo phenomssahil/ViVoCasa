@@ -1,0 +1,12 @@
+#login-form .remember-forget input{
+    appearance: none;
+    width: 1vw;
+    height: 1vw;
+    border: 2px solid #000;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+#login-form .remember-forget input:checked{
+    background-color: #000;
+}

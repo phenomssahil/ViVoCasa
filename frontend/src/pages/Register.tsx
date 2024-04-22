@@ -2,13 +2,13 @@ import { useState } from "react";
 import LoginForm from "../components/loginForm/loginForm"
 import Navbar from "../components/navbar/Navbar";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
     const [isCartUpdated,setIsCartUpdated] = useState(false);
     return(
         <>
         <Navbar isCartUpdated={isCartUpdated} setIsCartUpdated={setIsCartUpdated}/>
-        <LoginForm type="login"/>
+        <LoginForm type="signup"/>
         </>
     )
 }
-export default Login;
+export default Register;

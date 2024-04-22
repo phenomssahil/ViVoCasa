@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './OrderSummary.css'
+// import './OrderSummary.css'
 import { CartItems, ShoppingCart } from '../../../components/ShoppingCart'
 
 
@@ -46,7 +46,7 @@ const OrderSummary:React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                     <p>Tax Included (18%)</p>
-                    <p>${Math.floor(total||0)*0.18}</p>
+                    <p>${Math.floor((total||0)*0.18)}</p>
                 </div>
         </div>
 

@@ -57,7 +57,7 @@ app.post('/api/createCheckoutSession',async(req,res)=>{
                 amount:req.body.shipping
             },
             success_url:`${process.env.CLIENT_URL}/success`,
-            cancel_url:'http://localhost:5173/checkout'
+            cancel_url:`${process.env.CLIENT_URL}/checkout`
         })
         res.json({url:session.url})
     }

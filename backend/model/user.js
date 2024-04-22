@@ -15,12 +15,17 @@ const userSchema = new mongoose.Schema({
         required:true,
     },
     phone:Number,
+    dob:String,
+    gender:String,
     address:{
         street:String,
         city:String,
         state:String,
-        country:String,
-        postalCode:Number,
+        country:{
+            type:String,
+            default:'india'
+        },
+        pincode:Number,
         landmark:String,
     },
     cart:[{
@@ -43,9 +48,9 @@ const userSchema = new mongoose.Schema({
         ref:'products',
     }],
     paymentMethod:[{
-        type:String,
+        cardType:String,
         cardNumber:Number,
-        expirationDate:Number,
+        expiryDate:Number,
         nameOnCard:String,
     }],
     role:{

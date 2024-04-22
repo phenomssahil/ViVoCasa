@@ -3,6 +3,8 @@ import "./HeaderSection.css"
 import { ProductData } from '../../../types/interfaces';
 import { CartItems, ShoppingCart } from '../../../components/ShoppingCart';
 import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 interface HeaderSectionProps{
     product:ProductData,
@@ -14,6 +16,7 @@ const HeaderSection:React.FC<HeaderSectionProps> = ({product,setIsCartUpdated}) 
     const {id} = useParams<string>();
     const [quantity,setQuantity] =useState(1);
     const [price,setPrice] = useState(Math.floor(product.price))
+    const [cart,setCart] = useState<CartItems[]>([]);
 
     useEffect(()=> {
         scrollTo({top: 0, behavior:'smooth'})
@@ -39,22 +42,35 @@ const HeaderSection:React.FC<HeaderSectionProps> = ({product,setIsCartUpdated}) 
         }
     }, []);
 
-    const [cart,setCart] = useState<CartItems[]>([]);
-
     const handleAddToCart = (product:ProductData,quantity:number) => {
-        const existingItemIndex = cart.findIndex(item => item.product._id === product._id);
-        let updatedCart: CartItems[];
-
-        if (existingItemIndex !== -1) {
-            updatedCart = [...cart];
-            updatedCart[existingItemIndex].quantity += quantity;
-        } 
-        else {
-            updatedCart = [...cart, { product, quantity }];
+        var token = Cookies.get('token');
+        if(!token){
+            const existingItemIndex = cart.findIndex(item => item.product._id === product._id);
+            let updatedCart: CartItems[];
+            
+            if (existingItemIndex !== -1) {
+                updatedCart = [...cart];
+                updatedCart[existingItemIndex].quantity += quantity;
+            } 
+            else {
+                updatedCart = [...cart, { product, quantity }];
+            }
+            setCart(updatedCart);
+            ShoppingCart.saveCartToLocalStorage(updatedCart);
+            setIsCartUpdated(true);
         }
-        setCart(updatedCart);
-        ShoppingCart.saveCartToLocalStorage(updatedCart);
-        setIsCartUpdated(true);
+        else{
+            axios.post('/api/cart',{
+                productId:product._id,
+                quantity:quantity
+            })
+            .then(()=>{
+                setIsCartUpdated(true);
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+        }
     }
 
   return (
