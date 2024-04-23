@@ -1,12 +1,12 @@
 #checkout-orderSummary{
-    width:20vw;
+    /* width:15vw; */
     min-height: 5vw;
     padding: 0 1vw;
     /* background-color: red; */
 }
 #checkout-orderSummary p{
     font-family: helvetica;
-    font-size: 1vw;
+    font-size: 1.1vw;
 
 }
 #checkout-orderSummary .heading-container{

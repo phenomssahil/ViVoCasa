@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-// import './OrderSummary.css'
+import './OrderSummary.css'
 import { CartItems, ShoppingCart } from '../../../components/ShoppingCart'
-
 
 const OrderSummary:React.FC = () => {
     const [cartItems,setCartItems] = useState<CartItems[] >([])
@@ -12,32 +11,32 @@ const OrderSummary:React.FC = () => {
         if(items){
             tempItems = [...items]
             setCartItems(items)
+            items.forEach(item=>{
+                var price = item.product.price;
+                setTotal(Math.floor(total||0 + price*item.quantity))
+            })
         }
-        
-        cartItems.forEach(item=>{
-            var price = item.product.price;
-            setTotal(total||0 + price*item.quantity)
-        })
-    },[cartItems])
+    },[])
 
   return (
     <div id='checkout-orderSummary'>
+        <div className='bg-gray-400 w-[32vw] h-[0.5px] mx-[1vw]'></div>
+
         <div className="heading-container">
             <h1 className="heading ">Order Summary</h1>
         </div>
         
         <div className="items px-5">
-
             {cartItems.map((item,index) => (
-                <div key={index} className="item flex justify-around items-center py-2">
+                <div key={index} className="item flex justify-around items-center py-2 mr-[2vw]">
                     <img style={{height:"5vw",width:"5vw",borderRadius:"5px"}} src={item.product.thumbnailImageUrl} alt="" />
-                    <p className='w-64 truncate '>{item.quantity} x {item.product.title}</p>
+                    <p className='w-[20vw] truncate '>{item.quantity} x {item.product.title}</p>
                     <p className='w-5'>${Math.floor(item.product.price)*item.quantity}</p>
                 </div>
             ))}
         </div>
         
-        <div className='bg-gray-400 w-11/12 h-[0.5px] mx-8 mt-4'></div>
+        <div className='bg-gray-400 w-[32vw] h-[0.5px] mt-[2vw] mb-[0.5vw] mx-[1vw] '></div>
 
         <div className="total px-8 py-3">
                 <div className="flex justify-between">
@@ -50,7 +49,7 @@ const OrderSummary:React.FC = () => {
                 </div>
         </div>
 
-        <div className='bg-gray-400 w-11/12 h-[0.5px] mx-8 '></div>
+        <div className='bg-gray-400 w-[32vw] h-[0.5px] mt-[0.5vw] mx-[1vw] '></div>
         
         <div className="total px-8 py-3">
                 <div className="flex justify-between">

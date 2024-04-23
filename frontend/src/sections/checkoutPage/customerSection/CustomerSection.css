@@ -3,74 +3,63 @@
     min-height: 5vw;
     padding: 2vw;
 }
-#checkout-customer .heading-container{
+/* #checkout-customer .heading-container{
     width: 53vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap:1vw
-}
-#checkout-customer .heading-container .heading{
+} */
+/* #checkout-customer .heading-container .heading{
     width: 11vw;
     text-transform: uppercase;
     font-size: 1.8vw;
     font-family: futura;
-}
-#checkout-customer .heading-container .email{
+} */
+/* #checkout-customer .heading-container .email{
     width:35vw ;
     font-size: 0.9vw;
-}
-#checkout-customer .heading-container button{
+} */
+/* #checkout-customer .heading-container button{
     height: 1.8vw;
     width: 3.5vw;
     font-family: helvetica;
     font-size: 0.9vw;
     border: 0.5px solid #a7a6a6;
     border-radius: 20px;
-}
-#checkout-customer .email-container{
-    /* width: 60vw; */
+} */
+/* #checkout-customer .email-container{
     margin-top: 3vw;
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     gap: 2vw;
-}
-#checkout-customer .email-container .email{
-    /* width: 38vw; */
-}
-#checkout-customer .email-container .email .name{
+} */
+/* #checkout-customer .email-container .email .name{
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap:2vw
-}
-#checkout-customer .email-container .email .name .name1{
+} */
+/* #checkout-customer .email-container .email .name .name1{
     width: 50%;
-
-} 
-#checkout-customer .email-container .email input{
+}  */
+/* #checkout-customer .email-container .email input{
     all: unset;
-    /* margin-top: 0.5vw; */
-    border-bottom: 0.5px solid rgb(132, 132, 132);
-    /* margin-bottom: 1vw; */
     width: 30vw;
     padding: 5px;
     font-family: helvetica;
     font-size: 1.2vw;
     letter-spacing: 1px;
-}
-#checkout-customer .email-container .email .signup{
+} */
+/* #checkout-customer .email-container .email .signup{
     margin-bottom: 2vw;
     display: flex;
     justify-content: space-between;
-}
-#checkout-customer p{
+} */
+/* #checkout-customer p{
     font-family: helvetica;
-    /* margin-top: 1vw; */
-}
-
-#checkout-customer .email-container button{
+} */
+/* #checkout-customer .email-container button{
     width: 30vw;
     height: 2.8vw;
     background-color: black;
@@ -80,8 +69,8 @@
     font-family: helvetica;
     font-size: 0.8vw;
     font-weight: 700;
-}
-#checkout-customer .signin {
+} */
+/* #checkout-customer .signin {
     width: 7vw;
     height: 2.7vw;
     padding: 8px;
@@ -89,14 +78,9 @@
     font-family: helvetica;
     font-size: 0.9vw;
     border: 0.5px solid rgb(194, 194, 194);
-    /* margin: 0 0.3vw; */
     margin-right: 0.6vw;
-    /* margin-bottom: 1vw; */
-}
-/* #checkout-customer .signin:hover{
-    background-color: ;
 } */
-#checkout-customer .signup-btn {
+/* #checkout-customer .signup-btn {
     width: 12vw;
     font-weight: 700;
-}
+} */

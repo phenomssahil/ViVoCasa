@@ -29,10 +29,10 @@ const Checkout:React.FC = () => {
         <>
         <HeaderSection/>
 
-        <div id='checkout-page' className="flex justify-between w-full ">
+        <div id='checkout-page' className="flex justify-between ">
 
             <div className=''>
-                <div className='bg-gray-400 w-[55vw] h-[0.5px] mx-8'></div>
+                <div className='bg-gray-400 w-[52vw] h-[0.5px] mx-8'></div>
                 <CustomerSection 
                     isEditSelected={isEditSelected} 
                     setIsEditSelected={setIsEditSelected} 
@@ -40,7 +40,7 @@ const Checkout:React.FC = () => {
                     setFormVisited={setFormVisited}
                 />
 
-                <div className='bg-gray-400 w-[55vw] h-[0.5px] mx-8'></div>
+                <div className='bg-gray-400 w-[52vw] h-[0.5px] mx-8'></div>
 
                 <ShippingSection 
                     formVisited={formVisited} 
@@ -49,7 +49,7 @@ const Checkout:React.FC = () => {
                     setIsEditSelected={setIsEditSelected}
                 />
 
-                <div className='bg-gray-400 w-[55vw] h-[0.5px] mx-8'></div>
+                <div className='bg-gray-400 w-[52vw] h-[0.5px] mx-8'></div>
 
                 <BillingSection 
                     formVisited={formVisited} 
@@ -58,7 +58,7 @@ const Checkout:React.FC = () => {
                     setIsEditSelected={setIsEditSelected}
                 />
                 
-                <div className='bg-gray-400 w-[55vw] h-[0.5px] mx-8'></div>
+                <div className='bg-gray-400 w-[52vw] h-[0.5px] mx-8'></div>
 
                 <PaymentSection
                     formVisited={formVisited}
@@ -69,7 +69,6 @@ const Checkout:React.FC = () => {
             </div>
 
             <div className=" w-2/5">
-                <div className='bg-gray-400 w-11/12 h-[0.5px] mx-8'></div>
                 
                 <OrderSummary/>
 

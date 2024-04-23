@@ -26,6 +26,8 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
     const[cart,setCart] = useState<CartItems[] | null>([]);
     const[total,setTotal] = useState<number | undefined>(0);
     const[token,setToken] = useState<string | undefined>();
+    const[isMenuOpen,setIsMenuOpen] = useState(false);
+    const[isCartOpen,setIsCartOpen] = useState(false);
 
     useEffect(()=>{
         var cookie = Cookies.get('token');
@@ -64,10 +66,6 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             fetchCart()
         }
     },[isCartUpdated])
-
-    const [isMenuOpen,setIsMenuOpen] = useState(false);
-    const [isCartOpen,setIsCartOpen] = useState(false);
-
     const handleMenuClick = () => {
         setIsCartOpen(false);
         setIsMenuOpen(!isMenuOpen);
@@ -80,7 +78,6 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
         setIsMenuOpen(false);
         setIsCartOpen(true);
     }
-
     function incQty(product:CartItems){
         if(cart!=null){
             const index = cart?.findIndex(item=> item.product._id === product.product._id)
