@@ -4,7 +4,7 @@ const orderSchema = new mongoose.Schema({
     orderId:{
         required: true,
         unique: true,
-        type: String
+        type: Number
     },
     status:{
         type: String,
@@ -19,7 +19,20 @@ const orderSchema = new mongoose.Schema({
         quantity:{
             type: Number,
         }
-    }]
+    }],
+    name:String,
+    email:String,
+    address:{
+        street:String,
+        city:String,
+        state:String,
+        country:{
+            type:String,
+            default:'india'
+        },
+        pincode:Number,
+        landmark:String,
+    },
     
 },{timestamps:true})
 

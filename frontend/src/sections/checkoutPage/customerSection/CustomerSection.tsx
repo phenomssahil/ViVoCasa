@@ -10,7 +10,7 @@ interface CustomerSectionProps{
     isEditSelected: string,
     setIsEditSelected: React.Dispatch<React.SetStateAction<string>>
 }
-interface userData{
+export interface userData{
     name: string,
     lastName: string,
     email: string,

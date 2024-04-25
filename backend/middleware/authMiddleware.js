@@ -13,15 +13,16 @@ async function checkAuth(req, res, next) {
 }
 async function isLoggedIn(req, res, next) {
     if(!req.user) {
-        console.log("not logged in");
-        return res.status(403).json({message:"not logged in"});
+        return res.status(403).json({message:"unauthorized"});
     }
     next();
 }
 async function isAdmin(req, res, next) {
-    if(req.user){
+    if(req.user.email){
+        const user = await User.findOne({email:req.user.email});
+        if(!user) return res.status(403).json({message:"user not found"});
 
-        const role = req.user.role;
+        const role = user.role;
         
         if(role === 'admin'){
             next();
@@ -31,7 +32,7 @@ async function isAdmin(req, res, next) {
         }
     }
     else{
-        res.status(403).json({message:"not logged in"});
+        res.status(403).json({message:"unauthorized"});
     }
 
 }
