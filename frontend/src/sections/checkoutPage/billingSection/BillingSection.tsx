@@ -12,9 +12,7 @@ interface BillingSectionProps{
 
 const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
     const[errorAt,setErrorAt] = useState<string>('');
-    const[token,setToken] = useState<string | undefined>();
     const [formData, setFormData] = useState<UserAddress>({name: '',lastName:'',email: '',phone:-1,landmark:'',street:'',city:'',country:'',state:'',pincode:-1});
-
 
     useEffect(()=>{
         const billingData = localStorage.getItem('billingData');

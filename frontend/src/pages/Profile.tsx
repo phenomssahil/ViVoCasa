@@ -34,7 +34,14 @@ const Profile: React.FC = () => {
                 </div>
             )}
 
-            {sectionSelected==='orders' &&(<OrderSection/>)}
+            {sectionSelected==='orders' &&(
+                <OrderSection
+                    sectionSelected={sectionSelected} 
+                    setSectionSelected={setSectionSelected}
+                    subSectionSelected={subSectionSelected}
+                    setSubSectionSelected={setSubSectionSelected} 
+                />
+            )}
 
             {sectionSelected==='setting' &&(
                 <SettingSection

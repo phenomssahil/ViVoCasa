@@ -7,16 +7,17 @@ import diningRoomImg from '../assets/dining room.jpg'
 import bedRoomImg from '../assets/bedroom.png'
 import axios from 'axios'
 import { useSearchParams } from 'react-router-dom'
-import { UserAddress } from '../sections/checkoutPage/shippingSection/ShippingSection'
 
 const Success:React.FC = () => {
-  const [isCartUpdated, setIsCartUpdated] = useState<boolean>(false);
-  const [searchParams,setSearchParams] = useSearchParams();
-  const [success,setSuccess] = useState<string|null>();
-  const [orderPlaced,setOrderPlaced] = useState<boolean>(false);
+  const[isCartUpdated, setIsCartUpdated] = useState<boolean>(false);
+  const[searchParams] = useSearchParams();
+  const[success,setSuccess] = useState<string|null>();
+  const[orderPlaced,setOrderPlaced] = useState<boolean>(false);
+  const[orderId,setOrderId] = useState<number>();
 
   useEffect(()=>{
     async function checkPayment(){
+      
       const success = searchParams.get('success');
       setSuccess(success);
 
@@ -25,12 +26,15 @@ const Success:React.FC = () => {
         const jsonData = JSON.parse(customerData);
         
         if(success==='true'){
-          axios.post(`/api/payment/success/${window.location.search}`,{
+          await axios.post(`/api/payment/success/${window.location.search}`,{
             address:jsonData
           })
           .then(response=>{
-            setOrderPlaced(true);
-            localStorage.clear();     
+            if(response.status===200){
+              setOrderPlaced(true);
+              localStorage.clear();   
+              setOrderId(response.data.orderId);  
+            }
           })
           .catch(error=>console.log(error));
         }
@@ -40,23 +44,24 @@ const Success:React.FC = () => {
       }
     }
     checkPayment();
-  })
+  },[])
 
   return (
     <>
       <Navbar isCartUpdated={isCartUpdated} setIsCartUpdated={setIsCartUpdated}/>
         <div className="heading w-screen relative ">
-            {success==='true' &&(<>
+            {success==='true' && orderPlaced===true &&(<>
             <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER IS CONFIRMED</h1>
+            <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER ID IS {orderId}</h1>
             <p className='font-helvetica text-xl font-light text-center pt-6'>Thank you for shopping with us, we will process your order ASAP!</p>
             </>
             )}
             {success==='false' &&(<>
             <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR PAYMENT FAILED</h1>
-            <p className='font-helvetica text-xl font-light text-center pt-6'>Try Placing your Order Again</p>
+            <p className='font-helvetica text-xl font-light text-center pt-6'>Please Try Placing your Order Again</p>
             </>
             )}
-            {success==='false' && orderPlaced===false &&(<>
+            {success==='true' && orderPlaced===false &&(<>
             <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER COULDNT BE PROCCESSED</h1>
             <p className='font-helvetica text-xl font-light text-center pt-6'>Please Try Placing your Order Again</p>
             </>

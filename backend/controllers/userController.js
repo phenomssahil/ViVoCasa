@@ -123,7 +123,7 @@ async function getOrderHistory(req, res){
 
         const updatedOrder = await Promise.all(orders.map(async(item) => {
             const orderId = item.orderId;
-            const order = await Order.findById(orderId); 
+            const order = await Order.findOne({orderId:orderId}); 
             const products = order.products;
             
             const updatedProducts = await Promise.all(products.map(async(product) => {
@@ -134,11 +134,10 @@ async function getOrderHistory(req, res){
             
             return ({orderDetails:order,productDetails:updatedProducts});
         }));
-
         return res.status(200).json(updatedOrder);
     } 
     catch (error) {
-        
+        return res.status(500).json({error:error});
     }
 }
 function getUserAddress(req, res){
@@ -150,7 +149,7 @@ function getUserAddress(req, res){
     } 
     catch (error) {
         console.log(error);
-        return res.json({error: error.message});
+        return res.status(500).json({error: error});
     }
 }
 async function updateUserAddress(req, res){
@@ -170,11 +169,11 @@ async function updateUserAddress(req, res){
                 }
             }}
         )
-        return res.json({message: "address updated"});
+        return res.status(200).json({message: "address updated"});
     } 
     catch (error) {
         console.log(error);
-        return res.json({error: error.message});
+        return res.status(500).json({error: error});
     }
 }
 async function addPaymentMethod(req, res){

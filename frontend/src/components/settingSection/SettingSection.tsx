@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { ProfileNavbarProps } from '../navbar/ProfileNavbar';
-import { Form } from 'react-router-dom';
 
 interface UserDetails{
     name?: string,
@@ -150,7 +149,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             gender:form.get('gender'),
             pincode:form.get('pincode'),
         })
-        .then(response=>{
+        .then(()=>{
             setEditSelected('');
         })
         .catch(error=>console.log(error));
@@ -166,7 +165,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             pincode:form.get('pincode'),
             landmark:form.get('landmark'),
         })
-        .then(response=>{
+        .then(()=>{
             setEditSelected('');
         })
         .catch(error=>console.log(error));
@@ -188,7 +187,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
                 cardNumber:form.get('cardNumber'),
                 expiryDate:form.get('expiryDate'),
             })
-            .then(response=>{
+            .then(()=>{
                 setEditSelected('');
             })
             .catch(error=>console.log(error));
@@ -200,7 +199,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
                 cardNumber:form.get('cardNumber'),
                 expiryDate:form.get('expiryDate'),
             })
-            .then(response=>{
+            .then(()=>{
                 setEditSelected('');
                 setAddNewPayment(false);
             })
@@ -219,7 +218,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             currentPassword:form.get('currentPassword'),
             newPassword:form.get('newPassword')
         })
-        .then(response=>{
+        .then(()=>{
             setEditSelected('');
         })
         .catch(error=>console.log(error));
@@ -230,7 +229,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
                 cardNumber:cardNumber
             }
         })
-        .then(response=>{
+        .then(()=>{
             setEditSelected('.');
         })
         .catch(error=>console.log(error));

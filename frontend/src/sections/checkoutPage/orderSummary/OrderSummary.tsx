@@ -7,9 +7,7 @@ const OrderSummary:React.FC = () => {
     const [total,setTotal] = useState<number>();
     useEffect(()=>{
         const items = ShoppingCart.getCartFromLocalStorage();
-        let tempItems : CartItems[]
         if(items){
-            tempItems = [...items]
             setCartItems(items)
             items.forEach(item=>{
                 var price = item.product.price;

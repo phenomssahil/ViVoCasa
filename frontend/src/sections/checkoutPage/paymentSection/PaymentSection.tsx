@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './PaymentSection.css'
 import { formVisitedProps } from '../../../pages/Checkout'
 import axios, { AxiosResponse } from 'axios'
-import { CartItems, ShoppingCart } from '../../../components/ShoppingCart'
+import { ShoppingCart } from '../../../components/ShoppingCart'
 import { loadStripe } from '@stripe/stripe-js'
 
 interface PaymentSectionProps{
@@ -12,7 +12,7 @@ interface PaymentSectionProps{
     setIsEditSelected: React.Dispatch<React.SetStateAction<string>>
 }
 
-const PaymentSection:React.FC<PaymentSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
+const PaymentSection:React.FC<PaymentSectionProps> = ({isEditSelected}) => {
     const handleSubmit = async(event:any) => {
         event.preventDefault();
 
@@ -20,17 +20,15 @@ const PaymentSection:React.FC<PaymentSectionProps> = ({formVisited,setFormVisite
 
         const stripe = await loadStripe("pk_test_51P51upSC13CQFBSXMJ2qRfWEZUE6vBJtNVjEk4gnOgr0Ums0P3oxKntO6PR92Q1a7N4KlGAUoGfY1zLMCzofODdL0077EJlzTN")
 
-        axios.post('http://localhost:3000/api/payment/createCheckoutSession',{
+        axios.post('/api/payment/createCheckoutSession',{
             items:items
         })
         .then((response:AxiosResponse<{url:string,id:string}>)=>{
-            const {url,id} = response.data;
+            const {id} = response.data;
 
             stripe?.redirectToCheckout({
                 sessionId:id
             })
-            console.log("payment confirmation:",stripe?.retrievePaymentIntent); 
-        
         })
         .catch(err=>{
             console.log(err);

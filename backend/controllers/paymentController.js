@@ -8,6 +8,13 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
 
 async function createCheckoutSessionCheckout(req,res){
     try{
+        const products = req.body.items.map((item)=>{
+            return{
+                productId:item.product._id,
+                quantity:item.quantity,
+                
+            }
+        })
         const session = await stripe.checkout.sessions.create({
             payment_method_types:['card'],
             mode:'payment',
@@ -17,7 +24,8 @@ async function createCheckoutSessionCheckout(req,res){
                     price_data:{
                         currency:'inr',
                         product_data:{
-                            name:itemFromDB.title
+                            name:itemFromDB.title,
+                            images:[item.product.thumbnailImageUrl]
                         },
                         unit_amount:itemFromDB.price * 100
                     },
@@ -27,7 +35,7 @@ async function createCheckoutSessionCheckout(req,res){
             shipping_cost:{
                 amount:req.body.shipping
             },
-            success_url:`${process.env.CLIENT_URL}/confirmation?success=true&session_id={CHECKOUT_SESSION_ID}&order=${encodeURI(JSON.stringify(req.body.items))}`,
+            success_url:`${process.env.CLIENT_URL}/confirmation?success=true&session_id={CHECKOUT_SESSION_ID}&order=${encodeURI(JSON.stringify(products))}`,
             cancel_url:`${process.env.CLIENT_URL}/confirmation?success=false`
         })
         res.json({url:session.url,id:session.id})
@@ -38,25 +46,29 @@ async function createCheckoutSessionCheckout(req,res){
 }
 async function placeOrder(req,res){
     try {
-        const {session_id,order} = req.query;
+        const {order} = req.query;
         const orderItems = JSON.parse(decodeURI(order));
         const address = req.body.address;
+        const orderId = Math.floor(Date.now()+Math.random())
+
+        if(orderItems.length===0) return res.status(404).json({message:"server error"})
 
         if(req.user){
-            const orderId = Math.floor(Date.now()+Math.random())
             const order = await Order.create({
                 orderId:orderId
             })
 
-            const user = await User.findOneAndUpdate({email:req.user.email})
-            user.orders.push({orderId:orderId}) 
+            const user = await User.findOneAndUpdate(
+                {email:req.user.email},
+                {$push:{orders:{orderId:orderId}},$set:{cart:[]}},
+                {new:true}
+            )
             
             orderItems.map((item)=>{
                 order.products.push({
-                    productId:item.product._id,
+                    productId:item.productId,
                     quantity:item.quantity
                 })
-                user.cart.pull({productId:item.product._id})
             })
             order.set({
                 name:address.name,
@@ -69,17 +81,16 @@ async function placeOrder(req,res){
                     landmark:address.landmark
                 }
             })
-            order.save();
-            user.save();
+            await order.save();
+            return res.status(200).json({message:"order placed successfully",orderId:orderId})
         }
         else{
-            const orderId = Math.floor(Date.now()+Math.random())
             const order = await Order.create({
                 orderId:orderId
             })
             orderItems.map((item)=>{
                 order.products.push({
-                    productId:item.product._id,
+                    productId:item.productId,
                     quantity:item.quantity
                 })
             })
@@ -94,10 +105,9 @@ async function placeOrder(req,res){
                     landmark:address.landmark
                 }
             })
-            order.save()
+            await order.save()
+            return res.status(200).json({message:"order placed successfully",orderId:orderId})
         }
-
-        return res.json({message:"order placed successfully"})
     } 
     catch (error) {
         return res.status(500).json({error:error.message});

@@ -68,11 +68,11 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
                     )}
                 </div>
 
-                {type=='login' && (<div className="w-[22vw] mx-auto mt-[0.5vw] remember-forget flex gap-[1vw] justify-between">
+                {/* {type=='login' && (<div className="w-[22vw] mx-auto mt-[0.5vw] remember-forget flex gap-[1vw] justify-between">
                     <label className="font-helvetica "><input className="mx-2" type="checkbox" name="rememberme" id="remember-me"/>
                     Remember Me</label>
                     <a href="http://localhost:5173/forgot-password" className="font-helvetica ">Forgot Me</a>
-                </div>)}
+                </div>)} */}
 
                 {type=='login' && (<button className="font-helvetica w-[22vw] h-[2.8vw] rounded-[20px] text-white my-3
                  bg-black" type="submit">Login</button>)}

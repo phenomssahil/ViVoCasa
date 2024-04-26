@@ -48,6 +48,11 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
         else{
             async function fetchCart(){
                 const cartResponse = await axios.get('/api/user/cart');
+                console.log(cartResponse.data);
+                if(cartResponse.data.message==='cart is empty'){
+                    setIsCartUpdated(true);
+                    return;
+                }
                 const items:CartItems[]|null = cartResponse.data;
                 const totalCost = items?.reduce((total,item)=>total + item.product.price*item.quantity,0);
                 setTotal(totalCost);
@@ -140,23 +145,23 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             if(index!=null){
                 updatedCart = [...cart]
                 
-                if(!token){
+                axios.delete('/api/cart',{
+                    data:{
+                        productId:updatedCart[index].product._id,
+                    }
+                })
+                .then(()=>{
                     updatedCart.splice(index,1);
+                    if(updatedCart.length==0){
+                        setCart(null);
+                        return localStorage.removeItem('shoppingCart')
+                    }
                     ShoppingCart.saveCartToLocalStorage(updatedCart);
                     setCart(updatedCart);
                     setIsCartUpdated(true);
-                }
-                else{
-                    axios.delete('/api/cart',{
-                        data:{
-                            productId:updatedCart[index].product._id,
-                        }
-                    })
-                    .then(()=>{
-                        setCart(updatedCart);
-                        setIsCartUpdated(true);
-                    })
-                }
+                    setCart(updatedCart);
+                    setIsCartUpdated(true);
+                })
             }
         }
     }

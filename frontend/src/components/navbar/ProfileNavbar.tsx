@@ -12,7 +12,7 @@ export interface ProfileNavbarProps{
     setSubSectionSelected:React.Dispatch<React.SetStateAction<string>>
 }
 
-const ProfileNavbar:React.FC<ProfileNavbarProps> = ({sectionSelected,setSectionSelected,subSectionSelected,setSubSectionSelected}) => {
+const ProfileNavbar:React.FC<ProfileNavbarProps> = ({sectionSelected,setSectionSelected,setSubSectionSelected}) => {
     function handleSectionClick(section:string){
         setSectionSelected(section)
         setSubSectionSelected('details')
@@ -24,6 +24,7 @@ const ProfileNavbar:React.FC<ProfileNavbarProps> = ({sectionSelected,setSectionS
         axios.get('/api/user/logout')
         .then((response)=>{
             if(response.status === 200){
+                localStorage.clear();
                 window.location.href = '/login'
             }
         })

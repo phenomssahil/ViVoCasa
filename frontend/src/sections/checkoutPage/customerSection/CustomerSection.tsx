@@ -106,7 +106,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             email: formData.email,
             password: formData.password
         })
-        .then(response=>{
+        .then(()=>{
             const allFormVisited = formVisited;
             allFormVisited.customer = true;
             allFormVisited.shipping=true;
@@ -129,7 +129,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             email: formData.email,
             password: formData.password
         })
-        .then(response=>{
+        .then(()=>{
             const allFormVisited = formVisited;
             allFormVisited.customer = true;
             allFormVisited.shipping=true;
@@ -139,7 +139,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
     }    
     function handleSignOut(){
         axios.get('/api/user/logout')
-        .then(response=>{
+        .then(()=>{
             const allFormVisited = formVisited;
             allFormVisited.customer=false;
             allFormVisited.shipping=false;

@@ -25,13 +25,11 @@ export interface UserAddress{
 const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
     const [formData, setFormData] = useState<UserAddress>({name: '',lastName:'',email: '',phone:-1,landmark:'',street:'',city:'',country:'',state:'',pincode:-1});
     const[errorAt,setErrorAt] = useState<string>('');
-    const[token,setToken] = useState<string | undefined>();
 
     useEffect(()=>{
         function loadData(){
 
             var cookie = Cookies.get('token');
-            setToken(cookie)
             
             if(cookie){
                 axios.get('/api/user/profile/address')
