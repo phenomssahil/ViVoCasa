@@ -20,7 +20,7 @@ const {checkAuth} = require('./middleware/authMiddleware')
 app.use(checkAuth)
 
 const {connectToMongoDb} = require('./connect');
-connectToMongoDb(process.env.MONGO_URL);
+connectToMongoDb(`${process.env.MONGO_URL}`);
 
 const productRoute = require('./routes/productRoutes');
 const userRoute = require('./routes/userRoutes');
