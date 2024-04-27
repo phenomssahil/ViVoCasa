@@ -29,9 +29,15 @@ async function handleUserSignup(req,res){
 
         const token = jwt.sign(
             {email:user.email},
-            'secret'
+            process.env.JWT_SECRET,{
+                expiresIn:'1h'
+            }
         )
-        return res.status(201).cookie('token',token).json({message:'user created successfully'});
+        res.cookie('token',token,{
+            secure:true,
+            httpOnly:true
+        })
+        return res.status(201).json({message:'user created successfully'});
     
     } 
     catch (error) {
@@ -55,9 +61,15 @@ async function handleUserLogin(req,res){
 
                 const token = jwt.sign(
                     {email:user.email},
-                    'secret'
+                    process.env.JWT_SECRET,{
+                        expiresIn:'1h'
+                    }
                 )
-                return res.status(200).cookie('token',token).json({ message: 'Login successful' });
+                res.cookie('token',token,{
+                    secure:true,
+                    httpOnly:true
+                })
+                return res.status(200).json({ message: 'Login successful' });
             } 
             else {
                 return res.status(401).json({ message: 'Incorrect password' });
