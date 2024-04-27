@@ -35,7 +35,9 @@ async function handleUserSignup(req,res){
             }
         )
         res.cookie('token',token,{
+            maxAge: 24*60*60*1000,
             secure:true,
+            httpOnly:true,
             sameSite:'None'
         })
         return res.status(201).json({message:'user created successfully'});
@@ -66,11 +68,13 @@ async function handleUserLogin(req,res){
                         expiresIn:'1h'
                     }
                 )
-                
-                return res.status(200).cookie('token',token,{
+                res.cookie('token',token,{
+                    maxAge: 24*60*60*1000,
                     secure:true,
+                    httpOnly:true,
                     sameSite:'None'
-                }).json({ message: 'Login successful' });
+                })
+                return res.status(200).json({ message: 'Login successful' });
             } 
             else {
                 return res.status(401).json({ message: 'Incorrect password' });
