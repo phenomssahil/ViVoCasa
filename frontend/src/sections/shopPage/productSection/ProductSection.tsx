@@ -12,7 +12,7 @@ const ProductSection:React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchData = async() => {
       try {
-        const response = await axios.get(`https://urban-decor-server.vercel.app/api/product/`);
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/product/`);
         const fetchProducts = response.data;
         setProducts(fetchProducts);
         setLoading(false);
@@ -25,28 +25,7 @@ const ProductSection:React.FC = () => {
   },[])
   return (
     <div id='shop-products'>
-      {loading ? (
-        <>
-        <div style={{ width: '100%', height: 0, paddingBottom: '100%', position: 'relative' }}>
-          <iframe
-            src="https://giphy.com/embed/gu9XBXiz60HlO5p9Nz"
-            width="100%"
-            height="100%"
-            style={{ position: 'absolute' }}
-            frameBorder="0"
-            className="giphy-embed"
-            allowFullScreen
-          ></iframe>
-        </div>
-        <p>
-          <a href="https://giphy.com/gifs/loading-johnlukecom-johnlukeloading-gu9XBXiz60HlO5p9Nz">via GIPHY</a>
-        </p>
-        </>
-      ) : products.length === 0 ? (
-        <div>No products available.</div>
-      ) : (
-
-      <div className="section1">
+            <div className="section1">
         {products.length>0 && (<div className="part1" style={{width:'30vw'}}> 
           {products.slice(0,5).map((product,index) => (
             <div className='productCard' key={index}>
@@ -94,7 +73,6 @@ const ProductSection:React.FC = () => {
           ))}
         </div>)}
       </div>
-      )}
     </div>
   )
 }

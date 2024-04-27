@@ -60,7 +60,7 @@ const HeaderSection:React.FC<HeaderSectionProps> = ({product,setIsCartUpdated}) 
             setIsCartUpdated(true);
         }
         else{
-            axios.post('https://urban-decor-server.vercel.app/api/cart',{
+            axios.post(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
                 productId:product._id,
                 quantity:quantity
             })

@@ -47,7 +47,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
         }
         else{
             async function fetchCart(){
-                const cartResponse = await axios.get('https://urban-decor-server.vercel.app/api/user/cart');
+                const cartResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/cart`);
                 console.log(cartResponse.data);
                 if(cartResponse.data.message==='cart is empty'){
                     setIsCartUpdated(true);
@@ -97,7 +97,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                     setIsCartUpdated(true);
                 }
                 else{
-                    axios.post('https://urban-decor-server.vercel.app/api/cart',{
+                    axios.post(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
                         productId:updatedCart[index].product._id,
                         quantity:1
                     })
@@ -125,7 +125,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                         setIsCartUpdated(true);
                     }
                     else{
-                        axios.post('https://urban-decor-server.vercel.app/api/cart',{
+                        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
                             productId:updatedCart[index].product._id,
                             quantity:-1
                         })
@@ -145,7 +145,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             if(index!=null){
                 updatedCart = [...cart]
                 
-                axios.delete('https://urban-decor-server.vercel.app/api/cart',{
+                axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
                     data:{
                         productId:updatedCart[index].product._id,
                     }

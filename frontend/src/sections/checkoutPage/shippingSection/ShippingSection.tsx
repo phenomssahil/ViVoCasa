@@ -23,7 +23,7 @@ export interface UserAddress{
 }
 
 const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
-    const [formData, setFormData] = useState<UserAddress>({name: '',lastName:'',email: '',phone:-1,landmark:'',street:'',city:'',country:'',state:'',pincode:-1});
+    const [formData, setFormData] = useState<UserAddress>({name: 'eede',lastName:'',email: '',phone:0,landmark:'',street:'',city:'',country:'india',state:'',pincode:0});
     const[errorAt,setErrorAt] = useState<string>('');
 
     useEffect(()=>{
@@ -32,7 +32,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
             var cookie = Cookies.get('token');
             
             if(cookie){
-                axios.get('https://urban-decor-server.vercel.app/api/user/profile/address')
+                axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/address`)
                 .then(response =>{
                     const userAddress:UserAddress = response.data;
 
@@ -63,7 +63,10 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
             const customerData = localStorage.getItem('customerData');
             if(customerData){   
                 const customerDataJSON = JSON.parse(customerData)
-                setFormData(customerDataJSON);
+                const data = {name: 'eede',lastName:'',email: '',phone:0,landmark:'',street:'',city:'',country:'india',state:'',pincode:0}
+                data.name = customerDataJSON.name;
+                data.email = customerDataJSON.email;
+                setFormData(data);
                 
                 const allFormVisited = formVisited;
                 allFormVisited.customer=true;
@@ -76,11 +79,15 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
 
     const handleSubmit = (event:any) => {
         event.preventDefault();
-
+        console.log(formData);
         if(formData.email.length === 0){
             setErrorAt('email');
             return;
         } 
+        else if(formData.name.length === 0){
+            setErrorAt('name');
+            return;
+        }
         else if(formData.phone.toString().length !== 10){
             setErrorAt('phone');
             return;
@@ -103,12 +110,17 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
         }
         localStorage.setItem('shippingData', JSON.stringify(formData));
         localStorage.setItem('billingData', JSON.stringify(formData));
-        const updatedFormVisited = { ...formVisited, shipping: true, billing:true };
-        setFormVisited(updatedFormVisited);
+        const allFormVisited = formVisited;
+        allFormVisited.shipping=true;
+        allFormVisited.billing=true;
+        setFormVisited(allFormVisited)
         setIsEditSelected('payment')
+        console.log(formVisited,isEditSelected);
     }
     function handleFormChange(event:any) {
-        setFormData({ ...formData, [event.target.name]: event.target.value });
+        setErrorAt('');
+        setFormData((prevData) => ({ ...prevData, [event.target.name]: event.target.value }));
+
     }
     function handleEditClick(){
         setIsEditSelected('shipping');
@@ -143,7 +155,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                         
                         <div className='name1 w-[25vw]'>
                             <p className='font-helvetica'>First Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
                             
                             {errorAt==='name' &&(
                                 <p className='text-red-500 text-[0.9vw]'>First Name is required</p>
@@ -151,40 +163,40 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                         </div>
                         <div className='name1 w-[25vw]'>
                             <p className='font-helvetica'>Last Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
                         </div>
                     </div>
 
                     <p className='mt-3 font-helvetica'>Email</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>
                     
                     {errorAt==='email' &&(
                         <p className='text-red-500 text-[0.9vw]'>Email is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>Phone Number</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='phone' value={formData.phone} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="number" name='phone' value={formData.phone||''} onChange={handleFormChange}/>
                     
                     {errorAt==='phone' &&(
                         <p className='text-red-500 text-[0.9vw]'>Phone Number is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>Street</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='street' value={formData.street} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='street' value={formData.street||''} onChange={handleFormChange}/>
                     
                     {errorAt==='address' &&(
                         <p className='text-red-500 text-[0.9vw]'>Street is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>City</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='city' value={formData.city} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='city' value={formData.city||''} onChange={handleFormChange}/>
                     
                     {errorAt==='address' &&(
                         <p className='text-red-500 text-[0.9vw]'>City is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>Landmark</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='landmark' value={formData.landmark} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='landmark' value={formData.landmark||''} onChange={handleFormChange}/>
                     
                     <p className='mt-3 font-helvetica'>Country</p>
                     <select defaultValue={'india'} className="country w-[52vw] h-[3vw] flex items-center font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[5px] mt-[0.7vw] mb-[1vw] p-[5px] pl-[1vw]" name='country' onChange={handleFormChange} >
@@ -194,7 +206,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                     <div className='name'>
                         <div className='name1'>
                             <p className='mt-3 font-helvetica'>State</p>
-                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='state' value={formData.state} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='state' value={formData.state||''} onChange={handleFormChange}/>
                             
                             {errorAt==='state' &&(
                                 <p className='text-red-500 text-[0.9vw]'>State is required</p>
@@ -202,7 +214,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                         </div>
                         <div className='name1'>
                             <p className='mt-3 font-helvetica'>Postal Code</p>
-                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='pincode'value={formData.pincode} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="number" name='pincode'value={formData.pincode||''} onChange={handleFormChange}/>
                             {errorAt==='pincode' &&(
                                 <p className='text-red-500 text-[0.9vw]'>Postal Code is required</p>
                             )}

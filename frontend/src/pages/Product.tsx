@@ -16,11 +16,11 @@ const Product:React.FC = () => {
   useEffect(()=>{
     const fetchProductData = async () => {
       try {
-        const productResponse = await axios.get(`https://urban-decor-server.vercel.app/api/product/id/${id}`);
+        const productResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/product/id/${id}`);
         setProduct(productResponse.data);
 
         if (productResponse.data?.category) {
-            const recProductsResponse = await axios.get(`https://urban-decor-server.vercel.app/api/product/category/${productResponse.data.category}`);
+            const recProductsResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/product/category/${productResponse.data.category}`);
             setRecProducts(recProductsResponse.data);
         }
       } catch (error) {

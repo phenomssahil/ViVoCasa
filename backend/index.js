@@ -13,7 +13,7 @@ app.use(morgan('dev'))
 
 const cors = require('cors');
 app.use(cors({
-    origin: 'https://urbandecor.vercel.app',
+    origin: `${process.env.CLIENT_URL}`,
     methods:['GET','POST','PUT','DELETE'],
     allowedHeaders:['Content-Type']
 }));

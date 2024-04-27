@@ -20,7 +20,7 @@ const PaymentSection:React.FC<PaymentSectionProps> = ({isEditSelected}) => {
 
         const stripe = await loadStripe("pk_test_51P51upSC13CQFBSXMJ2qRfWEZUE6vBJtNVjEk4gnOgr0Ums0P3oxKntO6PR92Q1a7N4KlGAUoGfY1zLMCzofODdL0077EJlzTN")
 
-        axios.post('https://urban-decor-server.vercel.app/api/payment/createCheckoutSession',{
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/payment/createCheckoutSession`,{
             items:items
         })
         .then((response:AxiosResponse<{url:string,id:string}>)=>{

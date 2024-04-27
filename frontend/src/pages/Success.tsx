@@ -26,7 +26,7 @@ const Success:React.FC = () => {
         const jsonData = JSON.parse(customerData);
         
         if(success==='true'){
-          await axios.post(`https://urban-decor-server.vercel.app/api/payment/success/${window.location.search}`,{
+          await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/payment/success/${window.location.search}`,{
             address:jsonData
           })
           .then(response=>{

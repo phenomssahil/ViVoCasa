@@ -59,7 +59,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
         
     }
     function handleFormChange(event:any) {
-        setFormData({ ...formData, [event.target.name]: event.target.value });
+        setFormData((prevData) => ({ ...prevData, [event.target.name]: event.target.value }));
     }
     function handleEditClick(){
         setIsEditSelected('billing');
@@ -94,7 +94,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
                         
                         <div className='name1 w-[25vw]'>
                             <p className='font-helvetica'>First Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
                             
                             {errorAt==='name' &&(
                                 <p className='text-red-500 text-[0.9vw]'>First Name is required</p>
@@ -102,40 +102,40 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
                         </div>
                         <div className='name1 w-[25vw]'>
                             <p className='font-helvetica'>Last Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
                         </div>
                     </div>
 
                     <p className='mt-3 font-helvetica'>Email</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>
                     
                     {errorAt==='email' &&(
                         <p className='text-red-500 text-[0.9vw]'>Email is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>Phone Number</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='phone' value={formData.phone} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='phone' value={formData.phone||''} onChange={handleFormChange}/>
                     
                     {errorAt==='phone' &&(
                         <p className='text-red-500 text-[0.9vw]'>Phone Number is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>Street</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='street' value={formData.street} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='street' value={formData.street||''} onChange={handleFormChange}/>
                     
                     {errorAt==='address' &&(
                         <p className='text-red-500 text-[0.9vw]'>Street is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>City</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='city' value={formData.city} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='city' value={formData.city||''} onChange={handleFormChange}/>
                     
                     {errorAt==='address' &&(
                         <p className='text-red-500 text-[0.9vw]'>City is required</p>
                     )}
 
                     <p className='mt-3 font-helvetica'>Landmark</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='landmark' value={formData.landmark} onChange={handleFormChange}/>
+                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='landmark' value={formData.landmark||''} onChange={handleFormChange}/>
                     
                     <p className='mt-3 font-helvetica'>Country</p>
                     <select defaultValue={'india'} className="country w-[52vw] h-[3vw] flex items-center font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[5px] mt-[0.7vw] mb-[1vw] p-[5px] pl-[1vw]" name='country' onChange={handleFormChange} >
@@ -145,7 +145,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
                     <div className='name'>
                         <div className='name1'>
                             <p className='mt-3 font-helvetica'>State</p>
-                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='state' value={formData.state} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='state' value={formData.state||''} onChange={handleFormChange}/>
                             
                             {errorAt==='state' &&(
                                 <p className='text-red-500 text-[0.9vw]'>State is required</p>
@@ -153,7 +153,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
                         </div>
                         <div className='name1'>
                             <p className='mt-3 font-helvetica'>Postal Code</p>
-                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='pincode'value={formData.pincode} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='pincode'value={formData.pincode||''} onChange={handleFormChange}/>
                             {errorAt==='pincode' &&(
                                 <p className='text-red-500 text-[0.9vw]'>Postal Code is required</p>
                             )}
