@@ -66,11 +66,11 @@ async function handleUserLogin(req,res){
                         expiresIn:'1h'
                     }
                 )
-                res.cookie('token',token,{
+                
+                return res.status(200).cookie('token',token,{
                     secure:true,
                     sameSite:'None'
-                })
-                return res.status(200).json({ message: 'Login successful' });
+                }).json({ message: 'Login successful' });
             } 
             else {
                 return res.status(401).json({ message: 'Incorrect password' });
