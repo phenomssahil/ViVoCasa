@@ -11,7 +11,7 @@ router.route('/')
 
 router.post('/login',authController.handleUserLogin)
 router.post('/signup',authController.handleUserSignup)
-router.get('/logout',authController.handleUserLogout);
+router.post('/logout',authController.handleUserLogout);
 
 router.route('/cart')
 .get(isLoggedIn,userController.getUserCart);

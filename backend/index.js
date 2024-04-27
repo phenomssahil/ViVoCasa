@@ -14,7 +14,7 @@ app.use(morgan('dev'))
 const cors = require('cors');
 app.use(cors({
     origin: `${process.env.CLIENT_URL}`,
-    methods:['GET','POST','PUT','DELETE'],
+    methods:['GET','POST','PUT','DELETE','OPTIONS'],
     allowedHeaders:['Content-Type'],
     credentials:true
 }));

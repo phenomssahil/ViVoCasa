@@ -21,7 +21,9 @@ const ProfileNavbar:React.FC<ProfileNavbarProps> = ({sectionSelected,setSectionS
         setSubSectionSelected(subSection);
     }
     function handleSignOut(){
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/logout`)
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/logout`,{},{
+            withCredentials: true
+        })
         .then((response)=>{
             if(response.status === 200){
                 localStorage.clear();

@@ -138,7 +138,9 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         .catch(error=>console.log(error))
     }    
     function handleSignOut(){
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/logout`)
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/logout`,{},{
+            withCredentials:true,
+        })
         .then(()=>{
             const allFormVisited = formVisited;
             allFormVisited.customer=false;

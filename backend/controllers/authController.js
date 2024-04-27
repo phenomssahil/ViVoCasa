@@ -71,10 +71,9 @@ async function handleUserLogin(req,res){
                 if(!token) return res.status(500).json({"error":"token could not be generated"})
                 res.cookie('token',token,{
                     secure:true,
-                    httpOnly:true,
                     sameSite:'None'
                 })
-                return res.status(200).json({ message: 'Login successful',token:token});
+                return res.status(200).json({ message: 'Login successful' });
             } 
             else {
                 return res.status(401).json({ message: 'Incorrect password' });
