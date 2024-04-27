@@ -68,7 +68,8 @@ async function handleUserLogin(req,res){
                 )
                 res.cookie('token',token,{
                     secure:true,
-                    httpOnly:true
+                    httpOnly:true,
+                    sameSite:'None'
                 })
                 return res.status(200).json({ message: 'Login successful' });
             } 
