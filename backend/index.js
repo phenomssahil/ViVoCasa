@@ -13,7 +13,9 @@ app.use(morgan('dev'))
 
 const cors = require('cors');
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: 'https://urban-decor-server.vercel.app',
+    methods:['GET','POST','PUT','DELETE'],
+    allowedHeaders:['Content-Type']
 }));
 
 const {checkAuth} = require('./middleware/authMiddleware')
