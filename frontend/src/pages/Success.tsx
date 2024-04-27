@@ -12,7 +12,7 @@ const Success:React.FC = () => {
   const[isCartUpdated, setIsCartUpdated] = useState<boolean>(false);
   const[searchParams] = useSearchParams();
   const[success,setSuccess] = useState<string|null>();
-  const[orderPlaced,setOrderPlaced] = useState<boolean>(false);
+  const[orderPlaced,setOrderPlaced] = useState<boolean>();
   const[orderId,setOrderId] = useState<number>();
 
   useEffect(()=>{
@@ -35,6 +35,9 @@ const Success:React.FC = () => {
               localStorage.clear();   
               setOrderId(response.data.orderId);  
             }
+            else{
+              setOrderPlaced(false);
+            }
           })
           .catch(error=>console.log(error));
         }
@@ -52,7 +55,7 @@ const Success:React.FC = () => {
         <div className="heading w-screen relative ">
             {success==='true' && orderPlaced===true &&(<>
             <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER IS CONFIRMED</h1>
-            <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER ID IS {orderId}</h1>
+            <h1 className='uppercase text-5xl font-helvetica font-bold text-center pt-[2vw]'>YOUR ORDER ID IS {orderId}</h1>
             <p className='font-helvetica text-xl font-light text-center pt-6'>Thank you for shopping with us, we will process your order ASAP!</p>
             </>
             )}

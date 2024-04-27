@@ -36,7 +36,8 @@ async function handleUserSignup(req,res){
         )
         res.cookie('token',token,{
             secure:true,
-            httpOnly:true
+            httpOnly:false,
+            sameSite:'None'
         })
         return res.status(201).json({message:'user created successfully'});
     
@@ -68,7 +69,7 @@ async function handleUserLogin(req,res){
                 )
                 res.cookie('token',token,{
                     secure:true,
-                    httpOnly:true,
+                    httpOnly:false,
                     sameSite:'None'
                 })
                 return res.status(200).json({ message: 'Login successful' });
