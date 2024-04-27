@@ -30,7 +30,7 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
         .then(response=>{
             console.log(response);
             if(response.status === 200 ){
-                // window.location.href = '/profile'
+                window.location.href = '/profile'
             }
         })
         .catch(error=>{
