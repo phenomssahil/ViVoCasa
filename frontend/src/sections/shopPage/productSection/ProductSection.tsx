@@ -6,7 +6,6 @@ import { ProductData } from '../../../types/interfaces'
 
 const ProductSection:React.FC = () => {
   const [products,setProducts] = useState<ProductData[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -15,7 +14,6 @@ const ProductSection:React.FC = () => {
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/product/`);
         const fetchProducts = response.data;
         setProducts(fetchProducts);
-        setLoading(false);
       } 
       catch (error) {
         console.log("error fetching products",error);  
