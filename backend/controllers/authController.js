@@ -2,6 +2,7 @@ const { request } = require('express');
 const User = require('../model/user')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 async function handleUserSignup(req,res){
     try {
