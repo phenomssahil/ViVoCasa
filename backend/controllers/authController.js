@@ -39,7 +39,7 @@ async function handleUserSignup(req,res){
             httpOnly:true,
             sameSite:'None'
         })
-        return res.status(201).json({message:'user created successfully'});
+        return res.status(201).json({message:'user created successfully',token:token});
     
     } 
     catch (error) {

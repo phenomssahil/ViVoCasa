@@ -24,12 +24,11 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
             name:event.target.name.value,
             email: event.target.email.value,
             password: event.target.password.value
-        },{
-            withCredentials: true,
         })
         .then(response=>{
             console.log(response);
             if(response.status === 200){
+                Cookies.set('token',response.data.token)
                 window.location.href = '/profile'
             }
         })
