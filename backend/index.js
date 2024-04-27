@@ -15,7 +15,8 @@ const cors = require('cors');
 app.use(cors({
     origin: `${process.env.CLIENT_URL}`,
     methods:['GET','POST','PUT','DELETE'],
-    allowedHeaders:['Content-Type']
+    allowedHeaders:['Content-Type'],
+    credentials:true
 }));
 
 const {checkAuth} = require('./middleware/authMiddleware')
