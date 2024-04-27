@@ -74,7 +74,7 @@ async function handleUserLogin(req,res){
                     httpOnly:true,
                     sameSite:'None'
                 })
-                return res.status(200).json({ message: 'Login successful' });
+                return res.status(200).json({ message: 'Login successful',token:token});
             } 
             else {
                 return res.status(401).json({ message: 'Incorrect password' });

@@ -28,9 +28,9 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
         .then(response=>{
             console.log(response);
             if(response.status === 200 ){
-                // if(response.data.token){
-                // }
-                Cookies.set('token',response.data.token)
+                if(response.data.token){
+                    Cookies.set('token',response.data.token)
+                }
                 window.location.href = '/profile'
             }
         })
