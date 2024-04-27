@@ -11,5 +11,9 @@
             "src": "/(.*)",
             "dest": "/"
         }
+    ],
+    "rewrites": [
+        { "source": "/api/(.*)", "destination": "https://urban-decor-server.vercel.app/" },
+        { "source": "/(.*)", "destination": "/index.html" }
     ]
 }
