@@ -25,13 +25,13 @@ const RecommendationSection:React.FC<ProductCard> = ({products}) => {
     <div className='recommendations'>
         <h1 className='heading'>YOU MIGHT ALSO LIKE</h1>
 
-        <div className="products">
+        {products.length>0 && (<div className="products">
             {products.slice(0, 3).map((product: ProductData) => (
                 <div key={product._id} onClick={()=>handleClick(product._id)} >
                     <SmallProductCard key={product._id} product={product} />
                 </div>
             ))}  
-        </div>
+        </div>)}
     </div>
   )
 }

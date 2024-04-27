@@ -47,7 +47,7 @@ const ProductSection:React.FC = () => {
       ) : (
 
       <div className="section1">
-        <div className="part1" style={{width:'30vw'}}> 
+        {products.length>0 && (<div className="part1" style={{width:'30vw'}}> 
           {products.slice(0,5).map((product,index) => (
             <div className='productCard' key={index}>
               <CustomProductCard 
@@ -61,8 +61,8 @@ const ProductSection:React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="part2" style={{width:'30vw'}}>
+        </div>)}
+        {products.length>0 && (<div className="part2" style={{width:'30vw'}}>
           {products.slice(5,12).map((product,index) => (
             <div className="productCard" key={index}>
               <CustomProductCard 
@@ -76,8 +76,8 @@ const ProductSection:React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="part1" style={{width:'30vw'}}>
+        </div>)}
+        {products.length>0 && (<div className="part1" style={{width:'30vw'}}>
           {products.slice(12,17).map((product,index) => (
             <div className="productCard" key={index}>
               <CustomProductCard 
@@ -92,7 +92,7 @@ const ProductSection:React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>)}
       </div>
       )}
     </div>
