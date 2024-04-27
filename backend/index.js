@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+require('dotenv').config()
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
@@ -12,14 +13,14 @@ app.use(morgan('dev'))
 
 const cors = require('cors');
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: process.env.CLIENT_URL,
 }));
 
 const {checkAuth} = require('./middleware/authMiddleware')
 app.use(checkAuth)
 
 const {connectToMongoDb} = require('./connect');
-connectToMongoDb("mongodb://127.0.0.1:27017/ecommerce");
+connectToMongoDb(process.env.MONGO_URL);
 
 const productRoute = require('./routes/productRoutes');
 const userRoute = require('./routes/userRoutes');
@@ -33,6 +34,7 @@ app.use('/api/cart',cartRoute);
 app.use('/api/order',orderRoute);
 app.use('/api/payment',paymentRoute)
 
-app.listen(3000,()=>{
-    console.log("running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
+    console.log(`running on port ${PORT}`);
 })
