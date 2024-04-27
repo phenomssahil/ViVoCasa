@@ -12,7 +12,7 @@ const ProductSection:React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchData = async() => {
       try {
-        const response = await axios.get(`/api/product/`);
+        const response = await axios.get(`https://urban-decor-server.vercel.app/api/product/`);
         const fetchProducts = response.data;
         setProducts(fetchProducts);
         setLoading(false);

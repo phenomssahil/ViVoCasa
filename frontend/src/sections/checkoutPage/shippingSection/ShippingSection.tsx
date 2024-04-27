@@ -32,7 +32,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
             var cookie = Cookies.get('token');
             
             if(cookie){
-                axios.get('/api/user/profile/address')
+                axios.get('https://urban-decor-server.vercel.app/api/user/profile/address')
                 .then(response =>{
                     const userAddress:UserAddress = response.data;
 

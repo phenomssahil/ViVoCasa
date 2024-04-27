@@ -17,7 +17,7 @@ const ProductSection:React.FC<ProductSectionProps> = ({shopBy}) => {
   useEffect(()=>{
     const fetchData = async() => {
       try {
-        const response = await axios.get(`/api/product/${shopBy}/${id}`);
+        const response = await axios.get(`https://urban-decor-server.vercel.app/api/product/${shopBy}/${id}`);
         setStatusCode(response.status);
         if(statusCode!=404){
             const fetchProducts = response.data;

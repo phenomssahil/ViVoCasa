@@ -31,7 +31,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             setToken(cookie)
             
             if(cookie){
-                axios.get('/api/user/profile')
+                axios.get('https://urban-decor-server.vercel.app/api/user/profile')
                 .then(response =>{
                     const userDetails = response.data;
                     localStorage.setItem('customerData',JSON.stringify(userDetails));       
@@ -102,7 +102,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         else if(formData.email.length===0){
             setErrorAt('email')
         }
-        axios.post('/api/user/login',{
+        axios.post('https://urban-decor-server.vercel.app/api/user/login',{
             email: formData.email,
             password: formData.password
         })
@@ -124,7 +124,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         else if(formData.name.length===0){
             setErrorAt('name')
         }
-        axios.post('/api/user/signup',{
+        axios.post('https://urban-decor-server.vercel.app/api/user/signup',{
             name:formData.name + formData.lastName,
             email: formData.email,
             password: formData.password
@@ -138,7 +138,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         .catch(error=>console.log(error))
     }    
     function handleSignOut(){
-        axios.get('/api/user/logout')
+        axios.get('https://urban-decor-server.vercel.app/api/user/logout')
         .then(()=>{
             const allFormVisited = formVisited;
             allFormVisited.customer=false;

@@ -20,7 +20,7 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
     function handleSubmit(event: any) {
         event.preventDefault();
 
-        axios.post(`/api/user/${type}`,{
+        axios.post(`https://urban-decor-server.vercel.app/api/user/${type}`,{
             name:event.target.name.value,
             email: event.target.email.value,
             password: event.target.password.value

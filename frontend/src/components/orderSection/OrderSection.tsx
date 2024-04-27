@@ -22,7 +22,7 @@ const OrderSection:React.FC<ProfileNavbarProps> = ({subSectionSelected}) => {
 
     useEffect(()=>{
         console.log("hello");
-        axios.get('/api/user/orders')
+        axios.get('https://urban-decor-server.vercel.app/api/user/orders')
         .then(response =>{
             if(response.status === 200){
                 setOrder(response.data)

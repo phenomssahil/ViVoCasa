@@ -47,19 +47,19 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
     useEffect(()=>{
         setError(false);
         setErrorAt('');
-        axios.get('/api/user/profile')
+        axios.get('https://urban-decor-server.vercel.app/api/user/profile')
         .then(response=>{
             setUserDetails(response.data);
         })
         .catch(error=> console.log(error));
         
-        axios.get('/api/user/profile/address')
+        axios.get('https://urban-decor-server.vercel.app/api/user/profile/address')
         .then(response=>{
             setAddress(response.data);
         })
         .catch(error=> console.log(error));
 
-        axios.get('/api/user/profile/paymentMethod')
+        axios.get('https://urban-decor-server.vercel.app/api/user/profile/paymentMethod')
         .then(response=>{
             setPayment(response.data);
         })
@@ -141,7 +141,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         event.preventDefault();
         const form = new FormData(event.target)
 
-        axios.put('/api/user/profile',{
+        axios.put('https://urban-decor-server.vercel.app/api/user/profile',{
             name: form.get('name'),
             email:form.get('email'),
             phone:form.get('phone'),
@@ -158,7 +158,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         event.preventDefault();
         const form = new FormData(event.target)
 
-        axios.put('/api/user/profile/address',{
+        axios.put('https://urban-decor-server.vercel.app/api/user/profile/address',{
             street:form.get('street'),
             city:form.get('city'),
             state:form.get('state'),
@@ -181,7 +181,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         }
 
         if(!addnewPayment){
-            axios.put('/api/user/profile/paymentMethod',{
+            axios.put('https://urban-decor-server.vercel.app/api/user/profile/paymentMethod',{
                 cardType: form.get('cardType'),
                 nameOnCard:form.get('nameOnCard'),
                 cardNumber:form.get('cardNumber'),
@@ -193,7 +193,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             .catch(error=>console.log(error));
         }
         else{
-            axios.post('/api/user/profile/paymentMethod',{
+            axios.post('https://urban-decor-server.vercel.app/api/user/profile/paymentMethod',{
                 cardType: form.get('cardType'),
                 nameOnCard:form.get('nameOnCard'),
                 cardNumber:form.get('cardNumber'),
@@ -214,7 +214,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             return
         }
 
-        axios.put('/api/user/profile/updatePassword',{
+        axios.put('https://urban-decor-server.vercel.app/api/user/profile/updatePassword',{
             currentPassword:form.get('currentPassword'),
             newPassword:form.get('newPassword')
         })
@@ -224,7 +224,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         .catch(error=>console.log(error));
     }
     function handleDeletePaymentMethod(cardNumber:number){
-        axios.delete('/api/user/profile/paymentMethod',{
+        axios.delete('https://urban-decor-server.vercel.app/api/user/profile/paymentMethod',{
             data:{
                 cardNumber:cardNumber
             }

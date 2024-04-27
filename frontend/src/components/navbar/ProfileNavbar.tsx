@@ -21,7 +21,7 @@ const ProfileNavbar:React.FC<ProfileNavbarProps> = ({sectionSelected,setSectionS
         setSubSectionSelected(subSection);
     }
     function handleSignOut(){
-        axios.get('/api/user/logout')
+        axios.get('https://urban-decor-server.vercel.app/api/user/logout')
         .then((response)=>{
             if(response.status === 200){
                 localStorage.clear();

@@ -10,7 +10,7 @@ const ProductSection:React.FC = () => {
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const productResponse = await axios.get('/api/product');
+        const productResponse = await axios.get('https://urban-decor-server.vercel.app/api/product');
         const fetchProducts = productResponse.data
         setProducts(fetchProducts)
       } 
