@@ -34,6 +34,10 @@ app.use('/api/cart',cartRoute);
 app.use('/api/order',orderRoute);
 app.use('/api/payment',paymentRoute)
 
+app.get('/',(req, res) => {
+    res.send("Backend server is working")
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
     console.log(`running on port ${PORT}`);
