@@ -34,6 +34,7 @@ async function handleUserSignup(req,res){
                 expiresIn:'1h'
             }
         )
+        if(!token) return res.status(500).json({"error":"token could not be generated"})
         res.cookie('token',token,{
             secure:true,
             httpOnly:true,
@@ -43,7 +44,7 @@ async function handleUserSignup(req,res){
     
     } 
     catch (error) {
-        return res.json({error: error});
+        return res.status(500).json({error: error});
     }
 }
 async function handleUserLogin(req,res){
@@ -67,6 +68,7 @@ async function handleUserLogin(req,res){
                         expiresIn:'1h'
                     }
                 )
+                if(!token) return res.status(500).json({"error":"token could not be generated"})
                 res.cookie('token',token,{
                     secure:true,
                     httpOnly:true,
