@@ -47,19 +47,19 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
     useEffect(()=>{
         setError(false);
         setErrorAt('');
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/profile`)
+        axios.get(`/api/user/profile`)
         .then(response=>{
             setUserDetails(response.data);
         })
         .catch(error=> console.log(error));
         
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/address`)
+        axios.get(`/api/user/profile/address`)
         .then(response=>{
             setAddress(response.data);
         })
         .catch(error=> console.log(error));
 
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/paymentMethod`)
+        axios.get(`/api/user/profile/paymentMethod`)
         .then(response=>{
             setPayment(response.data);
         })
@@ -141,7 +141,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         event.preventDefault();
         const form = new FormData(event.target)
 
-        axios.put(`${import.meta.env.VITE_SERVER_URL}/api/user/profile`,{
+        axios.put(`/api/user/profile`,{
             name: form.get('name'),
             email:form.get('email'),
             phone:form.get('phone'),
@@ -158,7 +158,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         event.preventDefault();
         const form = new FormData(event.target)
 
-        axios.put(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/address`,{
+        axios.put(`/api/user/profile/address`,{
             street:form.get('street'),
             city:form.get('city'),
             state:form.get('state'),
@@ -181,7 +181,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         }
 
         if(!addnewPayment){
-            axios.put(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/paymentMethod`,{
+            axios.put(`/api/user/profile/paymentMethod`,{
                 cardType: form.get('cardType'),
                 nameOnCard:form.get('nameOnCard'),
                 cardNumber:form.get('cardNumber'),
@@ -193,7 +193,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             .catch(error=>console.log(error));
         }
         else{
-            axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/paymentMethod`,{
+            axios.post(`/api/user/profile/paymentMethod`,{
                 cardType: form.get('cardType'),
                 nameOnCard:form.get('nameOnCard'),
                 cardNumber:form.get('cardNumber'),
@@ -214,7 +214,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             return
         }
 
-        axios.put(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/updatePassword`,{
+        axios.put(`/api/user/profile/updatePassword`,{
             currentPassword:form.get('currentPassword'),
             newPassword:form.get('newPassword')
         })
@@ -224,7 +224,7 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
         .catch(error=>console.log(error));
     }
     function handleDeletePaymentMethod(cardNumber:number){
-        axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/paymentMethod`,{
+        axios.delete(`/api/user/profile/paymentMethod`,{
             data:{
                 cardNumber:cardNumber
             }

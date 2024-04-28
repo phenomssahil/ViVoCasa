@@ -32,7 +32,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
             var cookie = Cookies.get('token');
             
             if(cookie){
-                axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/profile/address`)
+                axios.get(`/api/user/profile/address`)
                 .then(response =>{
                     const userAddress:UserAddress = response.data;
 
@@ -79,7 +79,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
 
     const handleSubmit = (event:any) => {
         event.preventDefault();
-        console.log(formData);
+
         if(formData.email.length === 0){
             setErrorAt('email');
             return;

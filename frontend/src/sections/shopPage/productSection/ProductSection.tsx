@@ -11,7 +11,7 @@ const ProductSection:React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchData = async() => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/product/`);
+        const response = await axios.get(`/api/product/`);
         const fetchProducts = response.data;
         setProducts(fetchProducts);
       } 

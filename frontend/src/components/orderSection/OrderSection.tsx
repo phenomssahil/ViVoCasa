@@ -21,8 +21,7 @@ const OrderSection:React.FC<ProfileNavbarProps> = ({subSectionSelected}) => {
     const [order,setOrder] = useState<fetchedOrderData[]>([]);
 
     useEffect(()=>{
-        console.log("hello");
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/orders`)
+        axios.get(`/api/user/orders`)
         .then(response =>{
             if(response.status === 200){
                 setOrder(response.data)

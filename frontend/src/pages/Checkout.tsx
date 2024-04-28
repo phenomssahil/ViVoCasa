@@ -22,7 +22,7 @@ const Checkout:React.FC = () => {
     useEffect(() => {
         const items = ShoppingCart.getCartFromLocalStorage()
         setCart(items)
-    },[])
+    },[]) 
 
   return (
     <>{cart && (

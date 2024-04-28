@@ -20,15 +20,14 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
     function handleSubmit(event: any) {
         event.preventDefault();
 
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/${type}`,{
+        axios.post(`/api/user/${type}`,{
             name: event.target.name.value,
             email: event.target.email.value,
             password: event.target.password.value
         },{
-            withCredentials: true
+            // withCredentials: true
         })
         .then(response=>{
-            console.log(response);
             if(response.status === 200 ){
                 window.location.href = '/profile'
             }

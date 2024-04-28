@@ -60,16 +60,14 @@ const HeaderSection:React.FC<HeaderSectionProps> = ({product,setIsCartUpdated}) 
             setIsCartUpdated(true);
         }
         else{
-            axios.post(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
+            axios.post(`/api/cart`,{
                 productId:product._id,
                 quantity:quantity
             })
             .then(()=>{
                 setIsCartUpdated(true);
             })
-            .catch(error =>{
-                console.log(error);
-            })
+            .catch(error =>console.log(error))
         }
     }
 

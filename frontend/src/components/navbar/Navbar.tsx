@@ -47,8 +47,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
         }
         else{
             async function fetchCart(){
-                const cartResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/cart`);
-                console.log(cartResponse.data);
+                const cartResponse = await axios.get(`/api/user/cart`);
                 if(cartResponse.data.message==='cart is empty'){
                     setIsCartUpdated(true);
                     return;
@@ -70,7 +69,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             }
             fetchCart()
         }
-    },[isCartUpdated])
+    },[isCartUpdated,token])
     const handleMenuClick = () => {
         setIsCartOpen(false);
         setIsMenuOpen(!isMenuOpen);
@@ -97,7 +96,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                     setIsCartUpdated(true);
                 }
                 else{
-                    axios.post(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
+                    axios.post(`/api/cart`,{
                         productId:updatedCart[index].product._id,
                         quantity:1
                     })
@@ -125,7 +124,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                         setIsCartUpdated(true);
                     }
                     else{
-                        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
+                        axios.post(`/api/cart`,{
                             productId:updatedCart[index].product._id,
                             quantity:-1
                         })
@@ -145,7 +144,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             if(index!=null){
                 updatedCart = [...cart]
                 
-                axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/cart`,{
+                axios.delete(`/api/cart`,{
                     data:{
                         productId:updatedCart[index].product._id,
                     }

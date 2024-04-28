@@ -1,10 +1,11 @@
 const User = require('../model/user');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 async function checkAuth(req, res, next) {
     const token = req.cookies.token;
     if(token){
-        const verifiedToken = jwt.verify(token,'secret');
+        const verifiedToken = jwt.verify(token,process.env.JWT_SECRET);
         const email = verifiedToken.email;
         const user = await User.findOne({email});
         req.user = user;

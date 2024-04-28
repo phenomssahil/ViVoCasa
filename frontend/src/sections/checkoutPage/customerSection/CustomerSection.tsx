@@ -31,7 +31,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             setToken(cookie)
             
             if(cookie){
-                axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/profile`)
+                axios.get(`/api/user/profile`)
                 .then(response =>{
                     const userDetails = response.data;
                     localStorage.setItem('customerData',JSON.stringify(userDetails));       
@@ -102,7 +102,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         else if(formData.email.length===0){
             setErrorAt('email')
         }
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/login`,{
+        axios.post(`/api/user/login`,{
             email: formData.email,
             password: formData.password
         })
@@ -124,7 +124,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         else if(formData.name.length===0){
             setErrorAt('name')
         }
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/signup`,{
+        axios.post(`/api/user/signup`,{
             name:formData.name + formData.lastName,
             email: formData.email,
             password: formData.password
@@ -138,7 +138,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         .catch(error=>console.log(error))
     }    
     function handleSignOut(){
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/logout`,{},{
+        axios.post(`/api/user/logout`,{},{
             withCredentials:true,
         })
         .then(()=>{
