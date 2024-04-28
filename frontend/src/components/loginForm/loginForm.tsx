@@ -25,7 +25,7 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
             email: event.target.email.value,
             password: event.target.password.value
         },{
-            // withCredentials: true
+            withCredentials: true
         })
         .then(response=>{
             if(response.status === 200 ){
