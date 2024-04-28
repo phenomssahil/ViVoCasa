@@ -69,7 +69,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             }
             fetchCart()
         }
-    },[isCartUpdated,token])
+    },[isCartUpdated,token,])
     const handleMenuClick = () => {
         setIsCartOpen(false);
         setIsMenuOpen(!isMenuOpen);

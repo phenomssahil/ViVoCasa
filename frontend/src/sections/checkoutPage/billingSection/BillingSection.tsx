@@ -20,7 +20,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
             const billingDataJSON = JSON.parse(billingData)
             setFormData(billingDataJSON);
         }
-    },[formVisited])
+    },[formVisited,isEditSelected])
 
 
 
@@ -68,7 +68,7 @@ const BillingSection:React.FC<BillingSectionProps> = ({formVisited,setFormVisite
   return (
     <div className='w-[55vw] p-[2vw] pr-[0]'>
         <div className="heading-container flex justify-between items-center gap-[1vw]">
-            <h1 className="w-[9vw] heading font-futura text-[1.8vw] uppercase">Billing</h1>
+            <h1 className="w-[11vw] font-futura text-[1.8vw] uppercase">Billing</h1>
 
             {(formVisited.billing===true && isEditSelected!=='billing') && (
                 <>

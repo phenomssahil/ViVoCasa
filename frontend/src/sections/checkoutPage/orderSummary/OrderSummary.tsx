@@ -18,7 +18,7 @@ const OrderSummary:React.FC = () => {
 
   return (
     <div id='checkout-orderSummary'>
-        <div className='bg-gray-400 w-[32vw] h-[0.5px] mx-[1vw]'></div>
+        <div className='bg-gray-400 w-[35vw] h-[0.5px] mx-[1vw]'></div>
 
         <div className="heading-container">
             <h1 className="heading ">Order Summary</h1>
@@ -26,15 +26,15 @@ const OrderSummary:React.FC = () => {
         
         <div className="items px-5">
             {cartItems.map((item,index) => (
-                <div key={index} className="item flex justify-around items-center py-2 mr-[2vw]">
+                <div key={index} className="item w-[35vw] flex justify-between items-center py-2 px-[0.7vw]">
                     <img style={{height:"5vw",width:"5vw",borderRadius:"5px"}} src={item.product.thumbnailImageUrl} alt="" />
-                    <p className='w-[20vw] truncate '>{item.quantity} x {item.product.title}</p>
-                    <p className='w-5'>${Math.floor(item.product.price)*item.quantity}</p>
+                    <p className='w-[22vw] truncate text-center'>{item.quantity} x {item.product.title}</p>
+                    <p className='w-[3vw] '>${Math.floor(item.product.price)*item.quantity}</p>
                 </div>
             ))}
         </div>
         
-        <div className='bg-gray-400 w-[32vw] h-[0.5px] mt-[2vw] mb-[0.5vw] mx-[1vw] '></div>
+        <div className='bg-gray-400 w-[35vw] h-[0.5px] mt-[2vw] mb-[0.5vw] mx-[1vw] '></div>
 
         <div className="total px-8 py-3">
                 <div className="flex justify-between">
@@ -47,7 +47,7 @@ const OrderSummary:React.FC = () => {
                 </div>
         </div>
 
-        <div className='bg-gray-400 w-[32vw] h-[0.5px] mt-[0.5vw] mx-[1vw] '></div>
+        <div className='bg-gray-400 w-[35vw] h-[0.5px] mt-[0.5vw] mx-[1vw] '></div>
         
         <div className="total px-8 py-3">
                 <div className="flex justify-between">

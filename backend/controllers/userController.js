@@ -165,10 +165,11 @@ async function updateUserAddress(req, res){
                     state:state,
                     city:city,
                     pincode:pincode,
-                    landmark:landmark
+                    landmark:landmark||""
                 }
             }}
         )
+        if(!user) return res.status(404).json({message: 'User not found'});
         return res.status(200).json({message: "address updated"});
     } 
     catch (error) {

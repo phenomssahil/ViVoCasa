@@ -14,8 +14,10 @@ const Success:React.FC = () => {
   const[success,setSuccess] = useState<string|null>();
   const[orderPlaced,setOrderPlaced] = useState<boolean>();
   const[orderId,setOrderId] = useState<number>();
+  const[pageReload,setPageReload] = useState<boolean>();
 
   useEffect(()=>{
+    
     async function checkPayment(){
       
       const success = searchParams.get('success');
@@ -45,6 +47,9 @@ const Success:React.FC = () => {
           setOrderPlaced(false);
         }
       }
+      else{
+        setPageReload(true);
+      }
     }
     checkPayment();
   },[])
@@ -55,7 +60,7 @@ const Success:React.FC = () => {
         <div className="heading w-screen relative ">
             {success==='true' && orderPlaced===true &&(<>
             <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER IS CONFIRMED</h1>
-            <h1 className='uppercase text-5xl font-helvetica font-bold text-center pt-[2vw]'>YOUR ORDER ID IS {orderId}</h1>
+            <h1 className='capitalize text-3xl font-helvetica font-bold text-center pt-[2vw]'>your order id is {orderId}</h1>
             <p className='font-helvetica text-xl font-light text-center pt-6'>Thank you for shopping with us, we will process your order ASAP!</p>
             </>
             )}
@@ -67,6 +72,11 @@ const Success:React.FC = () => {
             {success==='true' && orderPlaced===false &&(<>
             <h1 className='uppercase text-5xl font-futura text-center pt-56'>YOUR ORDER COULDNT BE PROCCESSED</h1>
             <p className='font-helvetica text-xl font-light text-center pt-6'>Please Try Placing your Order Again</p>
+            </>
+            )}
+            {pageReload &&(<>
+            <h1 className='uppercase text-5xl font-futura text-center pt-56'>Page Not Found!</h1>
+            <p className='font-helvetica text-xl font-light text-center pt-6'>The Page you are looking for does not exist</p>
             </>
             )}
             <div className=" w-[100vw] images relative -left-12 scroll-snap-x my-5 flex">

@@ -13,6 +13,7 @@ import Success from "./pages/Success";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
 
 const App: React.FC = () =>{
   return (
@@ -31,6 +32,7 @@ const App: React.FC = () =>{
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Register/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='*' element={<NotFound/>}/>
 
       </Routes>
     </>

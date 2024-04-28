@@ -23,14 +23,14 @@ export interface UserAddress{
 }
 
 const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
-    const [formData, setFormData] = useState<UserAddress>({name: 'eede',lastName:'',email: '',phone:0,landmark:'',street:'',city:'',country:'india',state:'',pincode:0});
+    const [formData, setFormData] = useState<UserAddress>({name: '',lastName:'',email: '',phone:0,landmark:'',street:'',city:'',country:'india',state:'',pincode:0});
     const[errorAt,setErrorAt] = useState<string>('');
+    const[token,setToken] = useState<string|undefined>('');
 
     useEffect(()=>{
         function loadData(){
-
             var cookie = Cookies.get('token');
-            
+            setToken(cookie);
             if(cookie){
                 axios.get(`/api/user/profile/address`)
                 .then(response =>{
@@ -41,6 +41,8 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                     userAddress.name = userData.name;
                     userAddress.email = userData.email;
                     userAddress.phone = userData.phone;
+
+                    console.log(userAddress);
                     
                     setFormData(userAddress);
                     
@@ -57,25 +59,32 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                     
                 })
                 .catch(error=>console.log(error))
-                
                 return;
             }
             const customerData = localStorage.getItem('customerData');
             if(customerData){   
+                const shippingData = localStorage.getItem('shippingData');
+                if(shippingData) {
+                    const shippingDataJSON = JSON.parse(shippingData);
+                    setFormData(shippingDataJSON)
+
+                    const allFormVisited = formVisited;
+                    allFormVisited.customer=true;
+                    allFormVisited.shipping=true;
+                    allFormVisited.billing=true;
+                    setFormVisited(allFormVisited)
+                    setIsEditSelected('payment')
+                    return;
+                }
                 const customerDataJSON = JSON.parse(customerData)
-                const data = {name: 'eede',lastName:'',email: '',phone:0,landmark:'',street:'',city:'',country:'india',state:'',pincode:0}
+                const data = {name: '',lastName:'',email: '',phone:0,landmark:'',street:'',city:'',country:'india',state:'',pincode:0}
                 data.name = customerDataJSON.name;
                 data.email = customerDataJSON.email;
                 setFormData(data);
-                
-                const allFormVisited = formVisited;
-                allFormVisited.customer=true;
-                setFormVisited(allFormVisited)
-                setIsEditSelected('shipping')
             }
         }
         loadData();
-    },[formVisited])
+    },[formVisited,isEditSelected])
 
     const handleSubmit = (event:any) => {
         event.preventDefault();
@@ -115,7 +124,19 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
         allFormVisited.billing=true;
         setFormVisited(allFormVisited)
         setIsEditSelected('payment')
-        console.log(formVisited,isEditSelected);
+
+        if(token){
+            axios.put('/api/user/profile/address',{
+                street:formData.street,
+                city:formData.city,
+                state:formData.state,
+                pincode:formData.pincode,
+                landmark:formData.landmark
+            })
+            .then(()=>{
+            })
+            .catch(error=>console.log(error))
+        }
     }
     function handleFormChange(event:any) {
         setErrorAt('');
@@ -129,7 +150,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
   return (
     <div id='checkout-shipping' className='w-[55vw] p-[2vw] pr-[0]'>
         <div className="heading-container flex justify-between items-center gap-[1vw]">
-            <h1 className="heading font-futura text-[1.8vw] uppercase">Shipping</h1>
+            <h1 className="font-futura w-[11vw] text-[1.8vw] uppercase">Shipping</h1>
 
             {(formVisited.shipping===true && isEditSelected!=='shipping') && (
                 <>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import './CustomerSection.css'
 import { formVisitedProps } from '../../../pages/Checkout'
 import Cookies from 'js-cookie'
 import axios from 'axios'
@@ -23,7 +22,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
     const[signup,setSignup] = useState(false);
     const[token,setToken] = useState<string | undefined>();
     const[errorAt,setErrorAt] = useState<string>('');
-    const[formData, setFormData] = useState<userData>({name: '',lastName:'',email: '',password:'',phone:-1});
+    const[formData, setFormData] = useState<userData>({name: '',lastName:'',email: '',password:'',phone:0});
 
     useEffect(()=>{
         function loadData(){
@@ -125,7 +124,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             setErrorAt('name')
         }
         axios.post(`/api/user/signup`,{
-            name:formData.name + formData.lastName,
+            name:formData.name + ' ' + formData.lastName||'',
             email: formData.email,
             password: formData.password
         })
@@ -138,9 +137,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         .catch(error=>console.log(error))
     }    
     function handleSignOut(){
-        axios.post(`/api/user/logout`,{},{
-            withCredentials:true,
-        })
+        axios.post(`/api/user/logout`)
         .then(()=>{
             const allFormVisited = formVisited;
             allFormVisited.customer=false;
@@ -149,9 +146,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             allFormVisited.payment=false;
             setFormVisited(allFormVisited)
             setIsEditSelected('customer')
-            localStorage.removeItem('customerData');
-            localStorage.removeItem('shippingData');
-            localStorage.removeItem('billingData');
+            localStorage.clear();
         })
         .catch(error=>console.log(error))
     }
@@ -160,7 +155,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
     <div id='checkout-customer' className='w-[55vw] p-[2vw] pr-[0] '>
         <div className="flex justify-between items-center gap-[1vw]">
 
-            <h1 className="font-futura text-[1.8vw] uppercase">Customer</h1>
+            <h1 className="font-futura w-[11vw] text-[1.8vw] uppercase">Customer</h1>
             
             {(formVisited.customer==true && isEditSelected!='customer') && (
                <>
@@ -186,7 +181,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
                         
                         <div className='name1 w-[25vw]'>
                             <p className='font-helvetica'>First Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
                             
                             {errorAt==='name' &&(
                                 <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>First Name is required</p>
@@ -195,13 +190,13 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
                         <div className='name1 w-[25vw]'>
 
                             <p className='font-helvetica'>Last Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName} onChange={handleFormChange}/>
+                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
                         </div>
                     </div>)}
                     
                     <p className='font-helvetica'>Email</p>
-                    {signin&&(<input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email} onChange={handleFormChange}/>)}
-                    {!signin&&!signup&&(<input className='font-helvetica w-[32vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email} onChange={handleFormChange}/>)}
+                    {signin&&(<input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
+                    {!signin&&!signup&&(<input className='font-helvetica w-[32vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
 
                     {errorAt==='email' &&(
                         <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>Email address is required</p>
@@ -209,7 +204,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
                     
                     {signin && (<>
                         <p className='mt-3 font-helvetica'>Password</p>
-                        <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="password" name='password' value={formData.password} onChange={handleFormChange}/>
+                        <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="password" name='password' value={formData.password||''} onChange={handleFormChange}/>
                         
                         {errorAt==='password' &&(
                             <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Password is required</p>
