@@ -4,14 +4,9 @@ require('dotenv').config();
 
 async function checkAuth(req, res, next) {
     const token = req.cookies.token;
+    console.log(req.cookies);
     if(token){
-        const verifiedToken = jwt.verify(token,process.env.JWT_SECRET,(error,decoded)=>{
-            if(error){
-                if(error.message==='jwt expired'){
-                    res.status(401).clearCookie('token').json({message:'jwt expired'});
-                }
-            }
-        });
+        const verifiedToken = jwt.verify(token,process.env.JWT_SECRET);
         const email = verifiedToken.email;
         const user = await User.findOne({email});
         req.user = user;
