@@ -1,6 +1,7 @@
 {
     "rewrites": [
-        {"source": "/api/(.*)","destination": "https://urban-decor-server.vercel.app/api/$1"}
+        {"source": "/api/(.*)","destination": "https://urban-decor-server.vercel.app/api/$1"},
+        {"source": "/(.*)","destination": "/"}
     ]
 }
 
