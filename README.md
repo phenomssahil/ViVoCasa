@@ -44,6 +44,7 @@ Here're some of the project's best features:
 <p>1. Node.js: Install Node.js from the official website. Node.js comes with npm (Node Package Manager), which is required for managing project dependencies.</p>
 <p>2. Git: Install Git from the official website to clone the project repository and manage version control.</p>
 
+<h3>Cloning the Repository</h3>
 ```bash
   git clone https://github.com/ParasAhujax/UrbanDecor.git
 ```
