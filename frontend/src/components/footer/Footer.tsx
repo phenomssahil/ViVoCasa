@@ -8,10 +8,10 @@ const Footer:React.FC = () => {
         <div className="footer1">
             <div className="social">
                 <h6>Connect with us</h6>
-                <a href="">Instagram</a>
-                <a href="">Facebook</a>
-                <a href="">Twitter</a>
-                <a href="">Youtube</a>
+                <a href="https://instagram.com" target='_blank'>Instagram</a>
+                <a href="https://facebook.com" target='_blank'>Facebook</a>
+                <a href="https://twitter.com" target='_blank'>Twitter</a>
+                <a href="https://instagram.com" target='_blank'>Youtube</a>
             </div>
             <div className="logo">
                 <img src={logo} alt=""/>
@@ -23,10 +23,9 @@ const Footer:React.FC = () => {
             </div>
             <div className="others">
                 <h6>others</h6>
-                <a href="">wholesale</a>
-                <a href="">careers</a>
-                <a href="">FAQ's</a>
-                <a href=""></a>
+                <a href="https://dir.indiamart.com/industry/furniture.html" target='_blank'>wholesale</a>
+                <a href="https://naukri.com" target='_blank'>careers</a>
+                {/* <a href="https://instagram.com" target='_blank'>FAQ's</a> */}
             </div>
         </div>
         <div className="footer2">

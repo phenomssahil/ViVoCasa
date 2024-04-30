@@ -16,7 +16,7 @@ const StoriesSection:React.FC = () => {
 
                 <h3>Thank you so much for choosing Urban Decor</h3> 
                 <h3 className="sub-heading">it means a lot to serve you.</h3>
-                <Link className="button" to="">See Stories</Link>
+                {/* <Link className="button" to="">See Stories</Link> */}
             </div>            
         </div>
     </>
