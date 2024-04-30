@@ -46,7 +46,7 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                     
                     setFormData(userAddress);
                     
-                    if(userAddress.state && userAddress.pincode && userAddress.street && userAddress.city && userAddress.phone){
+                    if(userAddress.state && userAddress.pincode && userAddress.street && userAddress.city && userAddress.phone && formVisited.shipping!=true){
                         localStorage.setItem('shippingData',JSON.stringify(userAddress)); 
                         localStorage.setItem('billingData',JSON.stringify(userAddress));       
                         

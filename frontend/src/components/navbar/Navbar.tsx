@@ -253,13 +253,14 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
             <div className="separator"></div>
 
             <div className="checkout">
-                <div className="total-cost">
+                {/* <div className="total-cost">
                     <p className='heading'>DELIVERY</p>
                     <p>SHIPPING CALCULATED AT CHECK-OUT</p>
-                </div>
+                </div> */}
                 <div className="total-cost">
                     <p className='heading'>SUBTOTAL</p>
                     {total &&<p>${Math.floor(total)}</p>}
+                    {!total &&<p>-------</p>}
                 </div>
                 {cart && (<Link to='/checkout'>
                     <div onClick={handleCartClick} className="submit">

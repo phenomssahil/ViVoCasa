@@ -14,7 +14,6 @@ async function handleUserSignup(req,res){
         if(userExists) return res.status(400).json({message:'user already exists'});
 
         const encryptedPassword = await bcrypt.hash(password,10);
-        console.log(encryptedPassword);
         
         const user = await User.create({
             name:name,
@@ -40,7 +39,7 @@ async function handleUserSignup(req,res){
             // httpOnly:true,
             // sameSite:'None'
         })
-        return res.status(201).json({message:'user created successfully',token:token});
+        return res.status(200).json({message:'user created successfully',token:token});
     
     } 
     catch (error) {

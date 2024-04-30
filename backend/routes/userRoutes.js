@@ -5,7 +5,7 @@ const authController = require('../controllers/authController');
 const { isAdmin, isLoggedIn } = require('../middleware/authMiddleware');
 
 router.route('/')
-.get(userController.getAllUsers)
+.get(isAdmin,userController.getAllUsers)
 .post(isAdmin,userController.createUser)
 .delete(isAdmin,userController.deleteUser);
 

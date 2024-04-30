@@ -82,10 +82,10 @@
 #nav .full-menu a{
     font-family: futura;
     text-transform: uppercase;
-    font-size: 8vw;
+    font-size: 13vh;
     color: #fff;
     text-decoration: none;
-    line-height: 8vw;
+    line-height: 13vh;
 }
 #nav .full-menu .navbar{
     display: flex;
@@ -115,8 +115,11 @@
     right: 2vw;
     width: 60vw;
     text-align: end;
-    display: flex;
+    display: none;
     flex-direction: column;
+}
+#nav .full-menu.active .category{
+    display: flex;
 }
 #nav .full-menu .category img{
     width: 4vw;
@@ -227,7 +230,7 @@
     right: 0;
 }
 #nav .checkout .total-cost{
-    font-size: 13px;
+    font-size: 0.9vw;
     width: 31.5vw;
     color: #fff;
     display: flex;
@@ -254,6 +257,7 @@
 }
 #nav .cart .checkout .submit h5{
     font-family: helvetica;
+    font-size: 1vw;
 }
 #nav .cart .checkout .submit:hover{
     background-color: #fff;

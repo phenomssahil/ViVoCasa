@@ -26,7 +26,6 @@ const LoginForm : React.FC<LoginFormProps> = ({type}) => {
             password: event.target.password.value
         })
         .then(response=>{
-            console.log(response);
             if(response.status === 200 ){
                 window.location.href = '/profile'
             }
