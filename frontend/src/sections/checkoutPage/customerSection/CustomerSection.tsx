@@ -61,6 +61,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         setSignin(!signin)
 
         const allFormVisited = formVisited;
+        allFormVisited.customer=true
         setFormVisited(allFormVisited)
     }
     const handleSignUpClick = () => {
@@ -105,11 +106,14 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             email: formData.email,
             password: formData.password
         })
-        .then(()=>{
-            const allFormVisited = formVisited;
-            allFormVisited.customer = true;
-            allFormVisited.shipping=true;
-            setFormVisited(allFormVisited)
+        .then((response)=>{
+            if(response.status === 200){
+                setSignin(!signin)
+                const allFormVisited = formVisited;
+                allFormVisited.customer = true;
+                allFormVisited.shipping=true;
+                setFormVisited(allFormVisited)
+            }
         })
         .catch(error=>console.log(error))
     }
@@ -128,11 +132,14 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             email: formData.email,
             password: formData.password
         })
-        .then(()=>{
-            const allFormVisited = formVisited;
-            allFormVisited.customer = true;
-            allFormVisited.shipping=true;
-            setFormVisited(allFormVisited)
+        .then((response)=>{
+            if(response.status === 200){
+                setSignup(!signup)
+                const allFormVisited = formVisited;
+                allFormVisited.customer = true;
+                allFormVisited.shipping=true;
+                setFormVisited(allFormVisited)
+            }
         })
         .catch(error=>console.log(error))
     }    
@@ -229,7 +236,6 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             {signin && !signup && (<>
                 <button 
                     onClick={handleSignin}
-                    type='submit'
                     className='bg-black text-white w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]' 
                 >
                     SIGN IN
@@ -245,7 +251,6 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             <div className=''>
                 <button 
                     onClick={handleSignUp}
-                    type='submit'
                     className='bg-black text-white w-[15vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]' 
                 >
                     CREATE ACCOUNT
