@@ -167,7 +167,7 @@
 }
 #nav .cart-items-container .other p{
     color: gray;
-    font-size: 0.9vw;
+    font-size: 1vw;
     margin-bottom: 8px;
 }
 #nav .cart .separator{
@@ -230,7 +230,7 @@
     right: 0;
 }
 #nav .checkout .total-cost{
-    font-size: 0.9vw;
+    font-size: 1vw;
     width: 31.5vw;
     color: #fff;
     display: flex;

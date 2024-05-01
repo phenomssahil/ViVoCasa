@@ -42,11 +42,9 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                     userAddress.email = userData.email;
                     userAddress.phone = userData.phone;
 
-                    console.log(userAddress);
-                    
                     setFormData(userAddress);
-                    
-                    if(userAddress.state && userAddress.pincode && userAddress.street && userAddress.city && userAddress.phone && formVisited.shipping!=true){
+
+                    if(userAddress.state && userAddress.pincode && userAddress.street && userAddress.city && userAddress.phone && formVisited.shipping===false){
                         localStorage.setItem('shippingData',JSON.stringify(userAddress)); 
                         localStorage.setItem('billingData',JSON.stringify(userAddress));       
                         
@@ -175,67 +173,67 @@ const ShippingSection:React.FC<ShippingSectionProps> = ({formVisited,setFormVisi
                     <div className='name flex justify-between items-center gap-[1.5vw]'>
                         
                         <div className='name1 w-[25vw]'>
-                            <p className='font-helvetica'>First Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
+                            <p className='font-helvetica text-[1vw]'>First Name</p>
+                            <input className='px-[0vw] font-helvetica text-[1vw] mb-[1vw] w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
                             
                             {errorAt==='name' &&(
                                 <p className='text-red-500 text-[0.9vw]'>First Name is required</p>
                             )}
                         </div>
                         <div className='name1 w-[25vw]'>
-                            <p className='font-helvetica'>Last Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
+                            <p className='font-helvetica text-[1vw]'>Last Name</p>
+                            <input className='px-[0vw] font-helvetica w-[25vw] mb-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
                         </div>
                     </div>
 
-                    <p className='mt-3 font-helvetica'>Email</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>
+                    <p className='mt-3 font-helvetica text-[1vw]'>Email</p>
+                    <input className='px-[0vw] font-helvetica text-[1vw] w-[52vw] mb-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>
                     
                     {errorAt==='email' &&(
                         <p className='text-red-500 text-[0.9vw]'>Email is required</p>
                     )}
 
-                    <p className='mt-3 font-helvetica'>Phone Number</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="number" name='phone' value={formData.phone||''} onChange={handleFormChange}/>
+                    <p className='mt-3 font-helvetica text-[1vw]'>Phone Number</p>
+                    <input className='px-[0vw] font-helvetica text-[1vw] w-[52vw] mb-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="number" name='phone' value={formData.phone||''} onChange={handleFormChange}/>
                     
                     {errorAt==='phone' &&(
                         <p className='text-red-500 text-[0.9vw]'>Phone Number is required</p>
                     )}
 
-                    <p className='mt-3 font-helvetica'>Street</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='street' value={formData.street||''} onChange={handleFormChange}/>
+                    <p className='mt-3 font-helvetica text-[1vw]'>Street</p>
+                    <input className='px-[0vw] font-helvetica text-[1vw] w-[52vw] mb-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='street' value={formData.street||''} onChange={handleFormChange}/>
                     
                     {errorAt==='address' &&(
                         <p className='text-red-500 text-[0.9vw]'>Street is required</p>
                     )}
 
-                    <p className='mt-3 font-helvetica'>City</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='city' value={formData.city||''} onChange={handleFormChange}/>
+                    <p className='mt-3 font-helvetica text-[1vw]'>City</p>
+                    <input className='px-[0vw] font-helvetica text-[1vw] w-[52vw] mb-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='city' value={formData.city||''} onChange={handleFormChange}/>
                     
                     {errorAt==='address' &&(
                         <p className='text-red-500 text-[0.9vw]'>City is required</p>
                     )}
 
-                    <p className='mt-3 font-helvetica'>Landmark</p>
-                    <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='landmark' value={formData.landmark||''} onChange={handleFormChange}/>
+                    <p className='mt-3 font-helvetica text-[1vw]'>Landmark</p>
+                    <input className='px-[0vw] font-helvetica text-[1vw] w-[52vw] mb-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='landmark' value={formData.landmark||''} onChange={handleFormChange}/>
                     
-                    <p className='mt-3 font-helvetica'>Country</p>
+                    <p className='mt-3 font-helvetica text-[1vw] '>Country</p>
                     <select defaultValue={'india'} className="country w-[52vw] h-[3vw] flex items-center font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[5px] mt-[0.7vw] mb-[1vw] p-[5px] pl-[1vw]" name='country' onChange={handleFormChange} >
                         <option className='font-helvetica' value="">Select a country</option>
                         <option className='font-helvetica' value="india">India</option>
                     </select>
-                    <div className='name'>
+                    <div className='name]'>
                         <div className='name1'>
-                            <p className='mt-3 font-helvetica'>State</p>
-                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='state' value={formData.state||''} onChange={handleFormChange}/>
+                            <p className='mt-3 font-helvetica text-[1vw]'>State</p>
+                            <input className='px-[0vw] font-helvetica text-[1vw] mb-[1vw] w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='state' value={formData.state||''} onChange={handleFormChange}/>
                             
                             {errorAt==='state' &&(
                                 <p className='text-red-500 text-[0.9vw]'>State is required</p>
                             )}
                         </div>
                         <div className='name1'>
-                            <p className='mt-3 font-helvetica'>Postal Code</p>
-                            <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="number" name='pincode'value={formData.pincode||''} onChange={handleFormChange}/>
+                            <p className='mt-3 font-helvetica text-[1vw]'>Postal Code</p>
+                            <input className='px-[0vw] font-helvetica text-[1vw] mb-[1vw] w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="number" name='pincode'value={formData.pincode||''} onChange={handleFormChange}/>
                             {errorAt==='pincode' &&(
                                 <p className='text-red-500 text-[0.9vw]'>Postal Code is required</p>
                             )}

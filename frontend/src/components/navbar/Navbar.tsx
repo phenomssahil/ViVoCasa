@@ -250,6 +250,11 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                 ))}
 
             </div>
+            {(cart===null || cart?.length===0) &&(
+                <div className="my-[2vw]">
+                    <h3 className='text-[2vw] font-helvetica text-center text-white'>Cart is Empty</h3>
+                </div>
+            )}
             <div className="separator"></div>
 
             <div className="checkout">
@@ -267,7 +272,7 @@ const Navbar:React.FC<CartStateProps> = ({isCartUpdated,setIsCartUpdated}) => {
                         <h5>CHECKOUT</h5>
                     </div>
                 </Link>)}
-                {(cart==null || cart.length==0 )&&(
+                {(cart===null || cart.length===0 )&&(
                     <div onClick={()=>alert("cart is empty")} className="submit">
                     <h5>CHECKOUT</h5>
                 </div>

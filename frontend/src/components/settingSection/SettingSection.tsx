@@ -193,6 +193,19 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
             .catch(error=>console.log(error));
         }
         else{
+            if(form.get('cardNumber')===null){
+                setErrorAt('cardNumber')
+                return
+            }
+            else if(form.get('expiryDate')?.toString().length!==4){
+                setErrorAt('expiryDate')
+                return
+            }
+            else if(form.get('nameOnCard')===null){
+                setErrorAt('nameOnCard')
+                return
+            }
+            
             axios.post(`/api/user/profile/paymentMethod`,{
                 cardType: form.get('cardType'),
                 nameOnCard:form.get('nameOnCard'),
@@ -430,9 +443,12 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
                                 </div>
                             </div>
                         ))}
-                        <button onClick={handleAddNewPayment} className="flex justify-center items-center w-[5vw] h-[5vw] ring-1 ring-gray-200 rounded-[15px]">
+                        {payment.length>0 &&(<button onClick={handleAddNewPayment} className="flex justify-center items-center w-[5vw] h-[5vw] ring-1 ring-gray-200 rounded-[15px]">
                             <h1 className='text-[4vw]'>+</h1>
-                        </button>
+                        </button>)}
+                        {(payment.length===0||payment===undefined)&&(<button onClick={handleAddNewPayment} className="flex relative top-[7vw] left-[22vw] justify-center items-center w-[5vw] h-[5vw] ring-1 ring-gray-200 rounded-[15px]">
+                            <h1 className='text-[4vw]'>+</h1>
+                        </button>)}
                     </div>
                 </div>
             </div>)}
@@ -462,10 +478,10 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
                                 <input name='expiryDate' value={payment[index||0].expiryDate} onChange={handlePaymentChange} type='number'
                                 className='w-[15vw] font-helvetica p-[0.7vw] text-[1vw] border-[1px] border-black rounded-[3px] h-[2.1vw] ring-1 ring-gray-200'  />
                             </div>
-                            {error && errorAt==='expiryDate' && (
-                                <div className="absolute right-[-11vw] top-[1.5vw] font-helvetica text-red-600 text-[0.8vw] ">expiry date must be 4 digits</div>
-                            )}
                         </div>
+                            {errorAt==='expiryDate' && (
+                                <div className=" font-helvetica text-red-600 text-[0.8vw] ">expiry date must be 4 digits</div>
+                            )}
                         <div className="my-[0.6vw]">
                             <p className='font-helvetica text-[0.8vw]'>Name on Card</p> 
                             <input name='nameOnCard' value={payment[index||0].nameOnCard} onChange={handlePaymentChange} type='text'
@@ -501,6 +517,9 @@ const SettingSection:React.FC<SettingSectionProps> = ({subSectionSelected,editSe
                             <p className='font-helvetica text-[0.8vw]'>Expiry Date</p>
                             <input name='expiryDate' onChange={handlePaymentChange} type='text'
                             className='w-[15vw] font-helvetica p-[0.7vw] text-[1vw] border-[1px] border-black rounded-[3px] h-[2.1vw] ring-1 ring-gray-200'  />
+                            {errorAt==='expiryDate' && (
+                                <div className=" font-helvetica text-red-600 text-[0.8vw] ">expiry date must be 4 digits</div>
+                            )}
                         </div>
                         <div className="my-[0.6vw]">
                             <p className='font-helvetica text-[0.8vw]'>Name on Card</p> 

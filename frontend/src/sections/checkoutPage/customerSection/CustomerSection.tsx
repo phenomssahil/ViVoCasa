@@ -57,6 +57,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         }
         loadData();
     },[token])
+
     const handleSignInClick = () => {
         setSignin(!signin)
 
@@ -109,13 +110,18 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         .then((response)=>{
             if(response.status === 200){
                 setSignin(!signin)
+                var cookie = Cookies.get('token');
+                setToken(cookie);
                 const allFormVisited = formVisited;
                 allFormVisited.customer = true;
-                allFormVisited.shipping=true;
                 setFormVisited(allFormVisited)
             }
         })
-        .catch(error=>console.log(error))
+        .catch((error)=>{
+            if(error.response.status===401){
+                setErrorAt('user not found')
+            }
+        })
     }
     function handleSignUp(){
         if(formData.password.length===0){
@@ -135,13 +141,18 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         .then((response)=>{
             if(response.status === 200){
                 setSignup(!signup)
+                var cookie = Cookies.get('token');
+                setToken(cookie);
                 const allFormVisited = formVisited;
                 allFormVisited.customer = true;
-                allFormVisited.shipping=true;
                 setFormVisited(allFormVisited)
             }
         })
-        .catch(error=>console.log(error))
+        .catch(error=>{
+            if(error.response.stats===400){
+                setErrorAt('user already exist')
+            }
+        })
     }    
     function handleSignOut(){
         axios.post(`/api/user/logout`)
@@ -187,8 +198,8 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
                     {signup && (<div className='name mb-[1vw] flex justify-between items-center gap-[2vw]'>
                         
                         <div className='name1 w-[25vw]'>
-                            <p className='font-helvetica'>First Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
+                            <p className='font-helvetica text-[1vw]'>First Name</p>
+                            <input className='px-[0vw] mb-[1vw] font-helvetica w-[25vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
                             
                             {errorAt==='name' &&(
                                 <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>First Name is required</p>
@@ -196,30 +207,40 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
                         </div>
                         <div className='name1 w-[25vw]'>
 
-                            <p className='font-helvetica'>Last Name</p>
-                            <input className='font-helvetica w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
+                            <p className='font-helvetica text-[1vw]'>Last Name</p>
+                            <input className='px-[0vw] mb-[1vw] font-helvetica text-[1vw] w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
                         </div>
                     </div>)}
                     
-                    <p className='font-helvetica'>Email</p>
-                    {signin&&(<input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
-                    {!signin&&!signup&&(<input className='font-helvetica w-[32vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
+                    <p className='font-helvetica text-[1vw]'>Email</p>
+
+                    {signin&&(<input className='px-[0vw] mb-[1vw] font-helvetica w-[52vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
+                    {!signin&&!signup&&(<input className='px-[0vw] mb-[1vw] font-helvetica text-[1vw] w-[32vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
 
                     {errorAt==='email' &&(
                         <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>Email address is required</p>
                     )}
                     
                     {signin && (<>
-                        <p className='mt-3 font-helvetica'>Password</p>
-                        <input className='font-helvetica w-[52vw] h-[3vw] border-b-[1px] border-[#848484]' type="password" name='password' value={formData.password||''} onChange={handleFormChange}/>
+                        <p className='mt-3 font-helvetica text-[1vw]'>Password</p>
+                        <input className='px-[0vw] mb-[1vw] font-helvetica w-[52vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="password" name='password' value={formData.password||''} onChange={handleFormChange}/>
                         
                         {errorAt==='password' &&(
                             <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Password is required</p>
                         )}
 
+                        {errorAt==='user not found' &&(
+                            <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Email or Password is wrong</p>
+                        )}
+
+                        {errorAt==='user already exist' &&(
+                            <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Email or Password is wrong</p>
+                        )}
+
+
                         <div className="signup w-[52vw] flex justify-between mt-[0.5vw] mb-[2vw]">
-                            {!signup && (<p className='font-helvetica '>Forgot Password?</p>)}
-                            {signin && !signup && (<p className='font-helvetica cursor-pointer' onClick={handleSignUpClick}>Create an Account</p>)}
+                            {!signup && (<p className='font-helvetica text-[1vw]'>Forgot Password?</p>)}
+                            {signin && !signup && (<p className='font-helvetica text-[1vw] cursor-pointer' onClick={handleSignUpClick}>Create an Account</p>)}
                         </div>
                     </>)}
                     
@@ -235,12 +256,14 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             </div>
             {signin && !signup && (<>
                 <button 
+                type='button'
                     onClick={handleSignin}
                     className='bg-black text-white w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]' 
                 >
                     SIGN IN
                 </button>
                 <button 
+                    type='button'
                     className='bg-white text-black w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw] ring-1 ring-gray-200' 
                     onClick={handleSignInClick} 
                 >
@@ -250,6 +273,7 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
             {signin && signup && (
             <div className=''>
                 <button 
+
                     onClick={handleSignUp}
                     className='bg-black text-white w-[15vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]' 
                 >
