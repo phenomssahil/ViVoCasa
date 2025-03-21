@@ -9,22 +9,22 @@ const {
     getProductByCategory,
     getProductBySearch,
     getProductByRoom
-} 
-= require('../controllers/productController');
+}
+    = require('../controllers/productController');
 
 const { isAdmin } = require('../middleware/authMiddleware');
 
 router.route('/')
-.get(getAllProducts)
-.post(isAdmin,createProduct) 
+    .get(getAllProducts)
+    .post(isAdmin, createProduct)
 
 router.route('/id/:id')
-.get(getProductById)
-.put(isAdmin,updateProduct)
-.delete(isAdmin,deleteProduct)
+    .get(getProductById)
+    .put(isAdmin, updateProduct)
+    .delete(isAdmin, deleteProduct)
 
-router.get('/category/:id',getProductByCategory)
-router.get('/rooms/:id',getProductByRoom)
-router.get('/search',getProductBySearch)
+router.get('/category/:id', getProductByCategory)
+router.get('/rooms/:id', getProductByRoom)
+router.get('/search', getProductBySearch)
 
 module.exports = router;
