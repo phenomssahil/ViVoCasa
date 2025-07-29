@@ -1,5 +1,5 @@
 <div>
-<h1 align="center" id="title">The UrbanDecor</h1>
+<h1 align="center" id="title">VivoCasa</h1>
 </div>
 
 <p align="center"><img src="https://i.postimg.cc/3RCbJVhg/frame-chrome-mac-light-1.png" alt="project-image"></p>
@@ -8,8 +8,6 @@
 <p id="description">UrbanDecor is a full-stack home furnishing ecommerce platform designed to provide users with a seamless shopping experience. Whether you're looking to spruce up your living room, upgrade your bedroom, or add some flair to your kitchen, UrbanDecor has got you covered.</p>
 
 <h2>Demo</h2>
-
-[https://urbandecor.vercel.app/](https://urbandecor.vercel.app/)
 
 <h2>Project Screenshots:</h2>
 <div>
