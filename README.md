@@ -2,7 +2,7 @@
 <h1 align="center" id="title">VivoCasa</h1>
 </div>
 
-<p align="center"><img src="https://postimg.cc/k2m4GRP0" alt="project-image"></p>
+<p align="center"><img src="https://i.postimg.cc/YC4mXQnC/Screenshot-2025-07-30-at-12-23-09-AM.png" alt="project-image"></p>
 
 <h2>About</h2>
 <p id="description">VivoCasa is a full-stack home furnishing ecommerce platform designed to provide users with a seamless shopping experience. Whether you're looking to spruce up your living room, upgrade your bedroom, or add some flair to your kitchen, VivoCasa has got you covered.</p>
