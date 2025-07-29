@@ -5,62 +5,62 @@ import axios, { AxiosResponse } from 'axios'
 import { ShoppingCart } from '../../../components/ShoppingCart'
 import { loadStripe } from '@stripe/stripe-js'
 
-interface PaymentSectionProps{
+interface PaymentSectionProps {
     formVisited: formVisitedProps,
     setFormVisited: React.Dispatch<React.SetStateAction<formVisitedProps>>
     isEditSelected: string,
     setIsEditSelected: React.Dispatch<React.SetStateAction<string>>
 }
 
-const PaymentSection:React.FC<PaymentSectionProps> = ({isEditSelected}) => {
-    const handleSubmit = async(event:any) => {
+const PaymentSection: React.FC<PaymentSectionProps> = ({ isEditSelected }) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
 
-        const items = ShoppingCart.getCartFromLocalStorage(); 
+        const items = ShoppingCart.getCartFromLocalStorage();
+        // const stripe = await loadStripe("pk_test_51P51upSC13CQFBSXMJ2qRfWEZUE6vBJtNVjEk4gnOgr0Ums0P3oxKntO6PR92Q1a7N4KlGAUoGfY1zLMCzofODdL0077EJlzTN")
+        const stripe = await loadStripe("pk_test_51R9397PqbPsulUUj78WRHMJc7nhsTpCnVQD5HGNWjSLpCkxZkzs5ZIHF9yUt8uhLtumUV02eBtEREbQxabGn5gjF009okaAL3o")
 
-        const stripe = await loadStripe("pk_test_51P51upSC13CQFBSXMJ2qRfWEZUE6vBJtNVjEk4gnOgr0Ums0P3oxKntO6PR92Q1a7N4KlGAUoGfY1zLMCzofODdL0077EJlzTN")
-
-        axios.post(`/api/payment/createCheckoutSession`,{
-            items:items
+        axios.post(`/api/payment/createCheckoutSession`, {
+            items: items
         })
-        .then((response:AxiosResponse<{url:string,id:string}>)=>{
-            const {id} = response.data;
+            .then((response: AxiosResponse<{ url: string, id: string }>) => {
+                const { id } = response.data;
 
-            stripe?.redirectToCheckout({
-                sessionId:id
+                stripe?.redirectToCheckout({
+                    sessionId: id
+                })
             })
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-        
+            .catch(err => {
+                console.log(err);
+            })
+
     }
 
-  return (
-    <div id='checkout-payment'>
-        <div className="heading-container">
-            <h1 className="heading ">Payment</h1>
+    return (
+        <div id='checkout-payment'>
+            <div className="heading-container">
+                <h1 className="heading ">Payment</h1>
+            </div>
+
+            {(isEditSelected == 'payment') && (
+                <form onSubmit={handleSubmit} action="">
+                    <div className="payment">Credit/Debit Card
+                        <input type="radio" defaultChecked id='credit/debit' name='payment-method' />
+                        <span className='checkmark'></span>
+                    </div>
+                    <div className="payment-btn">
+                        <button
+                            className='button'
+                            type='submit'
+                            onClick={handleSubmit}>
+                            PAY SECURELY
+                        </button>
+                    </div>
+                </form>
+            )}
+
         </div>
-
-        {(isEditSelected=='payment') && (
-        <form onSubmit={handleSubmit} action="">
-            <div className="payment">Credit/Debit Card
-                <input type="radio" defaultChecked id='credit/debit' name='payment-method' />
-                <span className='checkmark'></span>
-            </div>
-            <div className="payment-btn">
-                <button 
-                className='button'
-                type='submit'
-                onClick={handleSubmit}>
-                    PAY SECURELY
-                </button>
-            </div>
-        </form>
-        )}
-
-    </div>
-  )
+    )
 }
 
 export default PaymentSection

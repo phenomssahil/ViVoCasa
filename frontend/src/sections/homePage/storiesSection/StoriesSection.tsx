@@ -3,22 +3,22 @@ import React from 'react'
 import './StoriesSetion.css'
 
 
-const StoriesSection:React.FC = () => {
+const StoriesSection: React.FC = () => {
   return (
     <>
-    <div className="support-heading">
-            <h3>Love and support</h3>
-        </div>
-        <div className="separator-support"></div>
+      <div className="support-heading">
+        <h3>Love and support</h3>
+      </div>
+      <div className="separator-support"></div>
 
-        <div id="story-heading">
-            <div className="story-heading-container">
+      <div id="story-heading">
+        <div className="story-heading-container">
 
-                <h3>Thank you so much for choosing Urban Decor</h3> 
-                <h3 className="sub-heading">it means a lot to serve you.</h3>
-                {/* <Link className="button" to="">See Stories</Link> */}
-            </div>            
+          <h3>Thank you so much for choosing VIVO CASA</h3>
+          <h3 className="sub-heading">it means a lot to serve you.</h3>
+          {/* <Link className="button" to="">See Stories</Link> */}
         </div>
+      </div>
     </>
   )
 }

@@ -3,82 +3,82 @@ import { formVisitedProps } from '../../../pages/Checkout'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 
-interface CustomerSectionProps{
+interface CustomerSectionProps {
     formVisited: formVisitedProps,
     setFormVisited: React.Dispatch<React.SetStateAction<formVisitedProps>>
     isEditSelected: string,
     setIsEditSelected: React.Dispatch<React.SetStateAction<string>>
 }
-export interface userData{
+export interface userData {
     name: string,
     lastName: string,
     email: string,
     password: string,
-    phone:number
+    phone: number
 }
 
-const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisited,isEditSelected,setIsEditSelected}) => {
-    const[signin,setSignin] = useState(false);
-    const[signup,setSignup] = useState(false);
-    const[token,setToken] = useState<string | undefined>();
-    const[errorAt,setErrorAt] = useState<string>('');
-    const[formData, setFormData] = useState<userData>({name: '',lastName:'',email: '',password:'',phone:0});
+const CustomerSection: React.FC<CustomerSectionProps> = ({ formVisited, setFormVisited, isEditSelected, setIsEditSelected }) => {
+    const [signin, setSignin] = useState(false);
+    const [signup, setSignup] = useState(false);
+    const [token, setToken] = useState<string | undefined>();
+    const [errorAt, setErrorAt] = useState<string>('');
+    const [formData, setFormData] = useState<userData>({ name: '', lastName: '', email: '', password: '', phone: 0 });
 
-    useEffect(()=>{
-        function loadData(){
+    useEffect(() => {
+        function loadData() {
             var cookie = Cookies.get('token');
             setToken(cookie)
-            
-            if(cookie){
+
+            if (cookie) {
                 axios.get(`/api/user/profile`)
-                .then(response =>{
-                    const userDetails = response.data;
-                    localStorage.setItem('customerData',JSON.stringify(userDetails));       
-                    setFormData(userDetails);
-                    
-                    const allFormVisited = formVisited;
-                    allFormVisited.customer=true;
-                    setFormVisited(allFormVisited)
-                    setIsEditSelected('shipping')         
-                })
-                .catch(error=>console.log(error))
+                    .then(response => {
+                        const userDetails = response.data;
+                        localStorage.setItem('customerData', JSON.stringify(userDetails));
+                        setFormData(userDetails);
+
+                        const allFormVisited = formVisited;
+                        allFormVisited.customer = true;
+                        setFormVisited(allFormVisited)
+                        setIsEditSelected('shipping')
+                    })
+                    .catch(error => console.log(error))
                 return;
             }
             const customerData = localStorage.getItem('customerData');
-            if(customerData){   
+            if (customerData) {
                 const customerDataJSON = JSON.parse(customerData)
                 setFormData(customerDataJSON);
-                
+
                 const allFormVisited = formVisited;
-                allFormVisited.customer=true;
+                allFormVisited.customer = true;
                 setFormVisited(allFormVisited)
                 setIsEditSelected('shipping')
             }
         }
         loadData();
-    },[token])
+    }, [token])
 
     const handleSignInClick = () => {
         setSignin(!signin)
 
         const allFormVisited = formVisited;
-        allFormVisited.customer=true
+        allFormVisited.customer = true
         setFormVisited(allFormVisited)
     }
     const handleSignUpClick = () => {
         setSignup(!signup)
-        
+
         const allFormVisited = formVisited;
-        allFormVisited.customer=true;
+        allFormVisited.customer = true;
         setFormVisited(allFormVisited)
-    }  
-    const handleSubmit = (event:any) => {
+    }
+    const handleSubmit = (event: any) => {
         event.preventDefault();
 
         const updatedFormVisited = { ...formVisited, customer: true };
         setFormVisited(updatedFormVisited);
 
-        if(formData.email.length===0){
+        if (formData.email.length === 0) {
             setErrorAt('email');
         }
 
@@ -87,218 +87,218 @@ const CustomerSection:React.FC<CustomerSectionProps> = ({formVisited,setFormVisi
         setSignin(false);
         setSignup(false);
     }
-    function handleFormChange(event:any) {
+    function handleFormChange(event: any) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     }
-    function handleEditClick(){
+    function handleEditClick() {
         const allFormVisited = formVisited;
         allFormVisited.customer = false;
         setFormVisited(allFormVisited)
         setIsEditSelected('customer')
     }
-    function handleSignin(){
-        if(formData.password.length===0){
+    function handleSignin() {
+        if (formData.password.length === 0) {
             setErrorAt('password')
         }
-        else if(formData.email.length===0){
+        else if (formData.email.length === 0) {
             setErrorAt('email')
         }
-        axios.post(`/api/user/login`,{
+        axios.post(`/api/user/login`, {
             email: formData.email,
             password: formData.password
         })
-        .then((response)=>{
-            if(response.status === 200){
-                setSignin(!signin)
-                var cookie = Cookies.get('token');
-                setToken(cookie);
-                const allFormVisited = formVisited;
-                allFormVisited.customer = true;
-                setFormVisited(allFormVisited)
-            }
-        })
-        .catch((error)=>{
-            if(error.response.status===401){
-                setErrorAt('user not found')
-            }
-        })
+            .then((response) => {
+                if (response.status === 200) {
+                    setSignin(!signin)
+                    var cookie = Cookies.get('token');
+                    setToken(cookie);
+                    const allFormVisited = formVisited;
+                    allFormVisited.customer = true;
+                    setFormVisited(allFormVisited)
+                }
+            })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    setErrorAt('user not found')
+                }
+            })
     }
-    function handleSignUp(){
-        if(formData.password.length===0){
+    function handleSignUp() {
+        if (formData.password.length === 0) {
             setErrorAt('password')
         }
-        else if(formData.email.length===0){
+        else if (formData.email.length === 0) {
             setErrorAt('email')
         }
-        else if(formData.name.length===0){
+        else if (formData.name.length === 0) {
             setErrorAt('name')
         }
-        axios.post(`/api/user/signup`,{
-            name:formData.name + ' ' + formData.lastName||'',
+        axios.post(`/api/user/signup`, {
+            name: formData.name + ' ' + formData.lastName || '',
             email: formData.email,
             password: formData.password
         })
-        .then((response)=>{
-            if(response.status === 200){
-                setSignup(!signup)
-                var cookie = Cookies.get('token');
-                setToken(cookie);
-                const allFormVisited = formVisited;
-                allFormVisited.customer = true;
-                setFormVisited(allFormVisited)
-            }
-        })
-        .catch(error=>{
-            if(error.response.stats===400){
-                setErrorAt('user already exist')
-            }
-        })
-    }    
-    function handleSignOut(){
+            .then((response) => {
+                if (response.status === 200) {
+                    setSignup(!signup)
+                    var cookie = Cookies.get('token');
+                    setToken(cookie);
+                    const allFormVisited = formVisited;
+                    allFormVisited.customer = true;
+                    setFormVisited(allFormVisited)
+                }
+            })
+            .catch(error => {
+                if (error.response.stats === 400) {
+                    setErrorAt('user already exist')
+                }
+            })
+    }
+    function handleSignOut() {
         axios.post(`/api/user/logout`)
-        .then(()=>{
-            const allFormVisited = formVisited;
-            allFormVisited.customer=false;
-            allFormVisited.shipping=false;
-            allFormVisited.billing=false;
-            allFormVisited.payment=false;
-            setFormVisited(allFormVisited)
-            setIsEditSelected('customer')
-            localStorage.clear();
-        })
-        .catch(error=>console.log(error))
+            .then(() => {
+                const allFormVisited = formVisited;
+                allFormVisited.customer = false;
+                allFormVisited.shipping = false;
+                allFormVisited.billing = false;
+                allFormVisited.payment = false;
+                setFormVisited(allFormVisited)
+                setIsEditSelected('customer')
+                localStorage.clear();
+            })
+            .catch(error => console.log(error))
     }
 
-  return (
-    <div id='checkout-customer' className='w-[55vw] p-[2vw] pr-[0] '>
-        <div className="flex justify-between items-center gap-[1vw]">
+    return (
+        <div id='checkout-customer' className='w-[55vw] p-[2vw] pr-[0] '>
+            <div className="flex justify-between items-center gap-[1vw]">
 
-            <h1 className="font-futura w-[11vw] text-[1.8vw] uppercase">Customer</h1>
-            
-            {(formVisited.customer==true && isEditSelected!='customer') && (
-               <>
-                {!token &&(<>
-                    <p className='email w-[30vw] text-[0.9vw] font-helvetica'>{formData.email}</p>
-                    <button className='w-[3.5vw] h-[1.9vw] font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[20px]' onClick={handleEditClick}>Edit</button>
-                </>)}
-                {token &&(<>
-                    <p className='email w-[28.5vw] text-[0.9vw] font-helvetica'>{formData.email}</p>
-                    <button className='w-[5vw] h-[1.9vw] font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[20px]' onClick={handleSignOut}>Sign Out</button>
-                </>)}
-               </>
-            )}
-        </div>
+                <h1 className="font-futura w-[11vw] text-[1.8vw] uppercase">Customer</h1>
 
-        {(isEditSelected=='customer') && (
-        <form onChange={()=>setErrorAt('')} onSubmit={handleSubmit} action="">
-
-            <div className="email-container flex items-center mt-[2vw] gap-[2vw]">
-                <div className="email">
-
-                    {signup && (<div className='name mb-[1vw] flex justify-between items-center gap-[2vw]'>
-                        
-                        <div className='name1 w-[25vw]'>
-                            <p className='font-helvetica text-[1vw]'>First Name</p>
-                            <input className='px-[0vw] mb-[1vw] font-helvetica w-[25vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name||''} onChange={handleFormChange}/>
-                            
-                            {errorAt==='name' &&(
-                                <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>First Name is required</p>
-                            )}
-                        </div>
-                        <div className='name1 w-[25vw]'>
-
-                            <p className='font-helvetica text-[1vw]'>Last Name</p>
-                            <input className='px-[0vw] mb-[1vw] font-helvetica text-[1vw] w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName'value={formData.lastName||''} onChange={handleFormChange}/>
-                        </div>
-                    </div>)}
-                    
-                    <p className='font-helvetica text-[1vw]'>Email</p>
-
-                    {signin&&(<input className='px-[0vw] mb-[1vw] font-helvetica w-[52vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
-                    {!signin&&!signup&&(<input className='px-[0vw] mb-[1vw] font-helvetica text-[1vw] w-[32vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email||''} onChange={handleFormChange}/>)}
-
-                    {errorAt==='email' &&(
-                        <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>Email address is required</p>
-                    )}
-                    
-                    {signin && (<>
-                        <p className='mt-3 font-helvetica text-[1vw]'>Password</p>
-                        <input className='px-[0vw] mb-[1vw] font-helvetica w-[52vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="password" name='password' value={formData.password||''} onChange={handleFormChange}/>
-                        
-                        {errorAt==='password' &&(
-                            <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Password is required</p>
-                        )}
-
-                        {errorAt==='user not found' &&(
-                            <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Email or Password is wrong</p>
-                        )}
-
-                        {errorAt==='user already exist' &&(
-                            <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Email or Password is wrong</p>
-                        )}
-
-
-                        <div className="signup w-[52vw] flex justify-between mt-[0.5vw] mb-[2vw]">
-                            {!signup && (<p className='font-helvetica text-[1vw]'>Forgot Password?</p>)}
-                            {signin && !signup && (<p className='font-helvetica text-[1vw] cursor-pointer' onClick={handleSignUpClick}>Create an Account</p>)}
-                        </div>
-                    </>)}
-                    
-                </div>
-                {!signin && !signup && (
-                    <button 
-                        className='w-[30vw] h-[2.8vw] bg-black text-white rounded-[20px] font-helvetica text-[0.8vw] mr-[3vw] font-bold'
-                        type='submit'
-                        onClick={handleSubmit}>
-                        CONTINUE
-                    </button>
+                {(formVisited.customer == true && isEditSelected != 'customer') && (
+                    <>
+                        {!token && (<>
+                            <p className='email w-[30vw] text-[0.9vw] font-helvetica'>{formData.email}</p>
+                            <button className='w-[3.5vw] h-[1.9vw] font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[20px]' onClick={handleEditClick}>Edit</button>
+                        </>)}
+                        {token && (<>
+                            <p className='email w-[28.5vw] text-[0.9vw] font-helvetica'>{formData.email}</p>
+                            <button className='w-[5vw] h-[1.9vw] font-helvetica text-[0.9vw] ring-1 ring-gray-200 rounded-[20px]' onClick={handleSignOut}>Sign Out</button>
+                        </>)}
+                    </>
                 )}
             </div>
-            {signin && !signup && (<>
-                <button 
-                type='button'
-                    onClick={handleSignin}
-                    className='bg-black text-white w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]' 
-                >
-                    SIGN IN
-                </button>
-                <button 
-                    type='button'
-                    className='bg-white text-black w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw] ring-1 ring-gray-200' 
-                    onClick={handleSignInClick} 
-                >
-                    CANCEL
-                </button>
-            </>)}
-            {signin && signup && (
-            <div className=''>
-                <button 
 
-                    onClick={handleSignUp}
-                    className='bg-black text-white w-[15vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]' 
-                >
-                    CREATE ACCOUNT
-                </button>
-                <button 
-                    className='bg-white text-black w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw] ring-1 ring-gray-200' 
-                    onClick={handleSignUpClick} 
-                >
-                    CANCEL
-                </button>
-            </div>)}
+            {(isEditSelected == 'customer') && (
+                <form onChange={() => setErrorAt('')} onSubmit={handleSubmit} action="">
+
+                    <div className="email-container flex items-center mt-[2vw] gap-[2vw]">
+                        <div className="email">
+
+                            {signup && (<div className='name mb-[1vw] flex justify-between items-center gap-[2vw]'>
+
+                                <div className='name1 w-[25vw]'>
+                                    <p className='font-helvetica text-[1vw]'>First Name</p>
+                                    <input className='px-[0vw] mb-[1vw] font-helvetica w-[25vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='name' value={formData.name || ''} onChange={handleFormChange} />
+
+                                    {errorAt === 'name' && (
+                                        <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>First Name is required</p>
+                                    )}
+                                </div>
+                                <div className='name1 w-[25vw]'>
+
+                                    <p className='font-helvetica text-[1vw]'>Last Name</p>
+                                    <input className='px-[0vw] mb-[1vw] font-helvetica text-[1vw] w-[25vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='lastName' value={formData.lastName || ''} onChange={handleFormChange} />
+                                </div>
+                            </div>)}
+
+                            <p className='font-helvetica text-[1vw]'>Email</p>
+
+                            {signin && (<input className='px-[0vw] mb-[1vw] font-helvetica w-[52vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email || ''} onChange={handleFormChange} />)}
+                            {!signin && !signup && (<input className='px-[0vw] mb-[1vw] font-helvetica text-[1vw] w-[32vw] h-[3vw] border-b-[1px] border-[#848484]' type="text" name='email' value={formData.email || ''} onChange={handleFormChange} />)}
+
+                            {errorAt === 'email' && (
+                                <p className='font-helvetica text-red-500 text-[0.9vw] mb-4'>Email address is required</p>
+                            )}
+
+                            {signin && (<>
+                                <p className='mt-3 font-helvetica text-[1vw]'>Password</p>
+                                <input className='px-[0vw] mb-[1vw] font-helvetica w-[52vw] text-[1vw] h-[3vw] border-b-[1px] border-[#848484]' type="password" name='password' value={formData.password || ''} onChange={handleFormChange} />
+
+                                {errorAt === 'password' && (
+                                    <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Password is required</p>
+                                )}
+
+                                {errorAt === 'user not found' && (
+                                    <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Email or Password is wrong</p>
+                                )}
+
+                                {errorAt === 'user already exist' && (
+                                    <p className='font-helvetica text-red-500 text-[0.9vw] mb-[0.5vw]'>Email or Password is wrong</p>
+                                )}
 
 
-            {!signin && !signup && (
-                <p className='cursor-pointer my-3 font-helvetica' 
-                    onClick={handleSignInClick}>Already have an account? Sign in now
-                </p>
+                                <div className="signup w-[52vw] flex justify-between mt-[0.5vw] mb-[2vw]">
+                                    {!signup && (<p className='font-helvetica text-[1vw]'>Forgot Password?</p>)}
+                                    {signin && !signup && (<p className='font-helvetica text-[1vw] cursor-pointer' onClick={handleSignUpClick}>Create an Account</p>)}
+                                </div>
+                            </>)}
+
+                        </div>
+                        {!signin && !signup && (
+                            <button
+                                className='w-[30vw] h-[2.8vw] bg-black text-white rounded-[20px] font-helvetica text-[0.8vw] mr-[3vw] font-bold'
+                                type='submit'
+                                onClick={handleSubmit}>
+                                CONTINUE
+                            </button>
+                        )}
+                    </div>
+                    {signin && !signup && (<>
+                        <button
+                            type='button'
+                            onClick={handleSignin}
+                            className='bg-black text-white w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]'
+                        >
+                            SIGN IN
+                        </button>
+                        <button
+                            type='button'
+                            className='bg-white text-black w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw] ring-1 ring-gray-200'
+                            onClick={handleSignInClick}
+                        >
+                            CANCEL
+                        </button>
+                    </>)}
+                    {signin && signup && (
+                        <div className=''>
+                            <button
+
+                                onClick={handleSignUp}
+                                className='bg-black text-white w-[15vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw]'
+                            >
+                                CREATE ACCOUNT
+                            </button>
+                            <button
+                                className='bg-white text-black w-[7vw] h-[2.7vw] p-[8px] rounded-[20px] font-helvetica text-[0.9vw] mr-[0.6vw] ring-1 ring-gray-200'
+                                onClick={handleSignUpClick}
+                            >
+                                CANCEL
+                            </button>
+                        </div>)}
+
+
+                    {!signin && !signup && (
+                        <p className='cursor-pointer my-3 font-helvetica'
+                            onClick={handleSignInClick}>Already have an account? Sign in now
+                        </p>
+                    )}
+
+                </form>
             )}
 
-        </form>
-        )}
-
-    </div>
-  )
+        </div>
+    )
 }
 
 export default CustomerSection

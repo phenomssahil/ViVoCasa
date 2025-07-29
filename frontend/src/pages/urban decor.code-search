@@ -1,0 +1,21 @@
+# Query: urban decor
+# ContextLines: 1
+
+3 results - 3 files
+
+UrbanDecor/frontend/src/components/footer/Footer.tsx:
+  33              <div className="tnc-mobile">
+  34              <div className="tnc-mobile">
+  35:                 <h6 className="company">© THE URBAN DECOR CO. 2024</h6>
+  35                  <h6>TERMS OF USE</h6>
+  36                  <h6>TERMS OF USE</h6>
+
+UrbanDecor/frontend/src/pages/Profile.tsx:
+  32                  <div className="flex justify-center pt-[10vw] w-[56vw] min-h-[30vw] rounded-[15px] ring-1 ring-gray-200 border-black">
+  33:                     <h1 className="font-futura text-[3vw] ">Welcome to VIVO CASA</h1>
+  34                  </div>
+
+UrbanDecor/frontend/src/sections/homePage/storiesSection/StoriesSection.tsx:
+  16  
+  17:                 <h3>Thank you so much for choosing VIVO CASA</h3> 
+  18                  <h3 className="sub-heading">it means a lot to serve you.</h3>
