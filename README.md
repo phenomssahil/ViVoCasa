@@ -1,5 +1,5 @@
 <div>
-<h1 align="center" id="title">The UrbanDecor</h1>
+<h1 align="center" id="title">VivoCasa</h1>
 </div>
 
 <p align="center"><img src="https://i.postimg.cc/YC4mXQnC/Screenshot-2025-07-30-at-12-23-09-AM.png" alt="project-image"></p>
